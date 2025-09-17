@@ -10,9 +10,14 @@
 #' transcribe_audio(list.files(), include_timing=TRUE, internal_convert=TRUE)
 
 
-transcribe_audio <- function(x, include_timing=TRUE, internal_convert=TRUE) {
+transcribe_audio <- function(x, include_timing=TRUE, internal_convert=TRUE, model_path) {
 
-  model <- whisper("C:/Users/selke/Documents/Whisper/ggml-base.en.bin")
+if (missing(model_path)) {
+  print("Path to Whisper acoustic model must be specified. Enter the directory containing the model downloaded with audio.whisper, or use its whisper() function to download one of the acoustic models and enter that path here.")
+}
+  else {
+
+model <- whisper(model_path)
 
 if (internal_convert==TRUE) {
   audio_files <- x |>
@@ -61,5 +66,6 @@ if (internal_convert==TRUE) {
     }
    }
   }
+}
   print(paste0("Transcription(s) complete. Output located in ", getwd()))
 }

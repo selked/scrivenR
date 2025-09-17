@@ -4,7 +4,7 @@
 \alias{transcribe_audio}
 \title{Transcribe 16-bit Mono .WAV file}
 \usage{
-transcribe_audio(x, include_timing = TRUE, internal_convert = TRUE)
+transcribe_audio(x, include_timing = TRUE, internal_convert = TRUE, model_path)
 }
 \arguments{
 \item{x}{Output of list.files() in working directory containing videos}

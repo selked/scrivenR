@@ -103,7 +103,7 @@ As opposed to the first two functions, this one has multiple arguments.
 -   ***`all_cores`:*** An option to indicate how many CPU cores you want to be utilized in parallel processing of the transcriptions. This is set to `FALSE` by default, wherein only half of your available cores will be used. If set to `TRUE`, parallel processing will include all CPU cores. I've found using all available cores to be pretty manageable, but note that it can slow some other things down while it's running.
 
 **Example:**
-```{r} 
+```{r, eval=FALSE} 
 setwd("C:/username/Desktop/files_to_be_transcribed")
 
 mp <- "C:/username/whispermodel/ggml-base.en.bin"

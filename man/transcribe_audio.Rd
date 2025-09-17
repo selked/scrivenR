@@ -4,7 +4,13 @@
 \alias{transcribe_audio}
 \title{Transcribe 16-bit Mono .WAV file}
 \usage{
-transcribe_audio(x, include_timing = TRUE, internal_convert = TRUE, model_path)
+transcribe_audio(
+  x,
+  include_timing = TRUE,
+  internal_convert = TRUE,
+  model_path,
+  all_cores = FALSE
+)
 }
 \arguments{
 \item{x}{Output of list.files() in working directory containing videos}
@@ -12,6 +18,8 @@ transcribe_audio(x, include_timing = TRUE, internal_convert = TRUE, model_path)
 \item{include_timing}{Option to include timestamps for each line of text, default=TRUE}
 
 \item{internal_convert}{Option to retain naming format for conversions made with this package, default=TRUE}
+
+\item{all_cores}{Use all available CPU cores for parallel processing (otherwise, half will be used), default=FALSE}
 }
 \description{
 This function takes a list of files, filters by common audio file extensions, and then runs an ffmpeg command to convert the audio and write output to the working directory.

@@ -42,7 +42,7 @@ In order to extract audio from videos or convert files in other audio formats, t
 
 I'll mention that R does have the very neat `av()` package, which binds R with ffmpeg, but I haven't always had the best luck with longer (1 hr+) files. Your mileage may well vary, so feel free to try it out, but I found that files taking me upwards of 45 minutes to convert with `av()` could be converted in seconds with ffmpeg.
 
-So, if you want to make use of `extract_audio` or `convert_audio`, you will need to make sure you have ffmpeg installed. I leverage R's `system()` function to call ffmpeg commands using your file names. You can download ffmpeg [here](https://www.ffmpeg.org/download.html). I'm on Windows, and I typiclly download the most recent, stable 'full' build from gyan.dev. Make sure that the location of your ffmpeg bin file is added to your PATH system environment variable.
+So, if you want to make use of `extract_audio` or `convert_audio`, you will need to make sure you have ffmpeg installed. I leverage R's `system()` function to call ffmpeg commands using your file names. You can download ffmpeg [here](https://www.ffmpeg.org/download.html). I'm on Windows, and I typically download the most recent, stable 'full' build from gyan.dev. Make sure that the location of your ffmpeg bin file is added to your PATH system environment variable.
 
 ## Example Code for Functions
 
@@ -56,11 +56,15 @@ This allows for some customization in itself, but, in any case, make sure that w
 
 This is the function you want if you are starting with a video file, and you need a transcription of the audio. FFmpeg allows us to cleanly extract the audio and convert it to our required format with a single command, so we can do this pretty easily.
 
-The only argument for this function is a character vector of file names. I typically set my working directory to the file containing my videos, and then just provide the output of `list.files()`. You can have other files in this directory, as the function will filter files according to common video-format extensions, but make sure that any video in the directory is one that you want to have audio extracted from.
+The only argument for this function is a character vector of file names. I typically set my working directory to the file containing my videos, and then just provide the output of `list.files()`. You can have other files in this directory, as the function will filter files according to common video-format extensions, but make sure that any video in the directory is one from which you want to have audio extracted.
 
 This function will output an audio file for each video in your working directory, and the file naming convention is `originalFileName_converted.wav`.
 
-**Accepted file formats:** - .mkv - .mp4 - .avi - .mpeg
+**Accepted file formats:** 
+-   .mkv 
+-   .mp4 
+-   .avi 
+-   .mpeg
 
 ```{r, eval=FALSE}
 setwd("C:/username/Desktop/video_files")
@@ -72,7 +76,11 @@ extract_audio(list.files())
 
 The architecture of this function is very similar to `extract_audio()`, but it is intended for use when you already have audio files and need them converted to Whisper's required 16-bit mono .WAV format. Provide a character vector of file names in the directory containing your audio files, and the function will filter by common audio-format extensions and, for each file, output `originalFileName_converted.wav`.
 
-**Accepted file formats:** - .wav - .mp3 - .aiff - .m4a
+**Accepted file formats:** 
+-   .wav 
+-   .mp3 
+-   .aiff 
+-   .m4a
 
 ```{r, eval=FALSE}
 setwd("C:/username/Desktop/audio_files")
@@ -86,14 +94,15 @@ This function is main thrust of the package, and it iterates through each of you
 
 As opposed to the first two functions, this one has multiple arguments.
 
--   ***x:*** A character vector of file names in your working directory
--   ***include_timing:*** An option to specify whether you want line-by-line timestamps recorded in your output. This is set to `FALSE` by default.
--   ***internal_convert:*** An option to indicate whether your audio files were converted with functions internal to this package. This will take the `originalFileName_converted` re-naming format into account when filtering files in your directory for the transcription pipeline.
--   ***model_path:*** A character vector of the path to your locally stored Whisper acoustic model. This argument is required and should look like `"C:/username/whispermodel/ggml-base.en.bin"`, but with your own directory- and model-specific information.
--   ***all_cores:*** An option to indicate how many CPU cores you want to be utilized in parallel processing of the transcriptions. This is set to `FALSE` by default, wherein only half of your available cores will be used. If set to `TRUE`, parallel processing will include all CPU cores. I've found using all available cores to be pretty manageable, but note that it can slow some other things down while it's running.
+-   ***`x`:*** A character vector of file names in your working directory
+-   ***`include_timing`:*** An option to specify whether you want line-by-line timestamps recorded in your output. This is set to `FALSE` by default.
+-   ***`internal_convert`:*** An option to indicate whether your audio files were converted with functions internal to this package. This will take the `originalFileName_converted` re-naming format into account when filtering files in your directory for the transcription pipeline.
+-   ***`model_path`:*** A character vector of the path to your locally stored Whisper acoustic model. This argument is required and should look like `"C:/username/whispermodel/ggml-base.en.bin"`, but with your own directory- and model-specific information.
+-   ***`all_cores`:*** An option to indicate how many CPU cores you want to be utilized in parallel processing of the transcriptions. This is set to `FALSE` by default, wherein only half of your available cores will be used. If set to `TRUE`, parallel processing will include all CPU cores. I've found using all available cores to be pretty manageable, but note that it can slow some other things down while it's running.
 
-\`\`\`{r} setwd("C:/username/Desktop/files_to_be_transcribed")
+```{r} setwd("C:/username/Desktop/files_to_be_transcribed")
 
 mp \<- "C:/username/whispermodel/ggml-base.en.bin"
 
 transcribe_audio( x = list.files(), include_timing = FALSE, internal_convert = TRUE, model_path = mp, all_cores = FALSE )
+```

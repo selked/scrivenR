@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This package provides a few convenience functions for batch-processing of audio conversion and automatic transcription. Though we need to hand-check the output of any transcript produced this way, doing so is often much less time-consuming that producing one from scratch. The goal of this package is to help create a simple pipeline for working with multiple recordings using tools available (or operable) in R. Each function takes a list of files, filters this list according to common files types, and then iteratively processes each file according to the function's procedure.
+This package provides a few convenience functions for batch-processing of audio conversion and automatic transcription. Though we need to hand-check the output of any transcript produced this way, doing so is often much less time-consuming than producing one from scratch. The goal of this package is to help create a simple pipeline for working with multiple recordings using tools available (or operable) in R. Each function takes a list of files, filters this list according to common files types, and then iteratively processes each file according to the function's procedure.
 
 Automatic transcription is performed with [Whisper](https://github.com/openai/whisper). I do most of my work in R, which includes the excellent [`audio.whisper`](https://community.r-multiverse.org/audio.whisper/doc/manual.html) package. This allows for easy transcription of individual audio files, but I wanted some ready-made functions for batch processing of file-conversion and automatic transcription. That's where `scrivenR` comes in.
 
@@ -21,7 +21,7 @@ You will want to make sure you have the following packages installed and loaded:
 -   audio.whisper
 -   parallel
 
-You can download this package by running `devtools::install_github("selked/scrivenR")`.
+You can download `scrivenR` by running `devtools::install_github("selked/scrivenR")`.
 
 ### Download Whisper Acoustic Model
 

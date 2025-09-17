@@ -45,7 +45,7 @@ After you have downloaded the model, you can load it into your R session by usin
 model <- whisper("C:/username/whispermodel/ggml-base.en.bin")
 ```
 
-Once you have that situated, there's one more important pre-requisite.
+Once you have that situated, there's one more important prerequisite.
 
 ### Download Command-Line Program FFmpeg
 
@@ -111,7 +111,7 @@ As opposed to the first two functions, this one has multiple arguments.
 -   ***`include_timing`:*** An option to specify whether you want line-by-line timestamps recorded in your output. This is set to `FALSE` by default.
 -   ***`internal_convert`:*** An option to indicate whether your audio files were converted with functions internal to this package. This will take the `originalFileName_converted` re-naming format into account when filtering files in your directory for the transcription pipeline and is set to `TRUE` by default.
 -   ***`model_path`:*** A character vector of the path to your locally stored Whisper acoustic model. This argument is required and should look like `"C:/username/whispermodel/ggml-base.en.bin"`, but with your own directory- and model-specific information.
--   ***`all_cores`:*** An option to indicate how many CPU cores you want to be utilized in parallel processing of the transcriptions. This is set to `FALSE` by default, wherein only half of your available cores will be used. If set to `TRUE`, parallel processing will include all CPU cores. I've found using all available cores to be pretty manageable, but note that it can slow some other things down while it's running.
+-   ***`all_cores`:*** An option to indicate whether you want to utilize all of your CPU cores in parallel processing of the transcriptions. This is set to `FALSE` by default, wherein only half of your available cores will be used. If set to `TRUE`, parallel processing will include all CPU cores. I've found using all available cores to be pretty manageable, but note that it can slow some other things down while it's running.
 
 **Example:**
 ```{r, eval=FALSE} 

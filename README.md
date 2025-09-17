@@ -66,6 +66,7 @@ This function will output an audio file for each video in your working directory
 -   .avi 
 -   .mpeg
 
+**Example:**
 ```{r, eval=FALSE}
 setwd("C:/username/Desktop/video_files")
 
@@ -82,6 +83,7 @@ The architecture of this function is very similar to `extract_audio()`, but it i
 -   .aiff 
 -   .m4a
 
+**Example:**
 ```{r, eval=FALSE}
 setwd("C:/username/Desktop/audio_files")
 
@@ -100,9 +102,11 @@ As opposed to the first two functions, this one has multiple arguments.
 -   ***`model_path`:*** A character vector of the path to your locally stored Whisper acoustic model. This argument is required and should look like `"C:/username/whispermodel/ggml-base.en.bin"`, but with your own directory- and model-specific information.
 -   ***`all_cores`:*** An option to indicate how many CPU cores you want to be utilized in parallel processing of the transcriptions. This is set to `FALSE` by default, wherein only half of your available cores will be used. If set to `TRUE`, parallel processing will include all CPU cores. I've found using all available cores to be pretty manageable, but note that it can slow some other things down while it's running.
 
-```{r} setwd("C:/username/Desktop/files_to_be_transcribed")
+**Example:**
+```{r} 
+setwd("C:/username/Desktop/files_to_be_transcribed")
 
-mp \<- "C:/username/whispermodel/ggml-base.en.bin"
+mp <- "C:/username/whispermodel/ggml-base.en.bin"
 
 transcribe_audio( x = list.files(), include_timing = FALSE, internal_convert = TRUE, model_path = mp, all_cores = FALSE )
 ```

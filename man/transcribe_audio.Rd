@@ -22,7 +22,7 @@ transcribe_audio(
 \item{all_cores}{Use all available CPU cores for parallel processing (otherwise, half will be used), default=FALSE}
 }
 \description{
-This function takes a list of files, filters by common audio file extensions, and then runs an ffmpeg command to convert the audio and write output to the working directory.
+This function takes a list of file names for 16-bit mono WAVs and applies batch processing of automatic transcription using Whisper.
 }
 \examples{
 transcribe_audio(list.files(), include_timing=TRUE, internal_convert=TRUE)

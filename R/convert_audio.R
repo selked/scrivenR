@@ -17,7 +17,7 @@ convert_audio <- function (x) {
     collapse = '|'))
 
   if (length(audio_files)==0) {
-    print("No recognizable audio files in working directory. Add your files, convert to allowable audio formats, or change to appropriate directory.")
+    stop("No recognizable audio files in working directory. Add your files, convert to allowable audio formats, or change to appropriate directory.")
   }
 
   else {

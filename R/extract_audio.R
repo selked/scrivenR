@@ -17,7 +17,7 @@ extract_audio <- function (x) {
     collapse = '|'))
 
   if (length(video_files)==0) {
-    print("No recognizable video files in working directory. Add your files, convert to allowable video formats, or change to appropriate directory.")
+    stop("No recognizable video files in working directory. Add your files, convert to allowable video formats, or change to appropriate directory.")
   }
 
   else {

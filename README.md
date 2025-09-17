@@ -40,7 +40,7 @@ setwd("C:/username/whispermodel") # Change to the place you'd like to store your
 model <- whisper("base.en")
 ```
 
-After you have downloaded the model, you can load it into your R session by using the same `audio.whisper` function while providing the file path to your local model rather than the generic model title, e.g.:
+The first time you run this, it will both download the model to your device and load it into your R session. After this first time, you can load it into your R session by using the same `audio.whisper` function while providing the file path to your local model rather than the generic model title, e.g:
 
 ```{r, eval=FALSE}
 model <- whisper("C:/username/whispermodel/ggml-base.en.bin")

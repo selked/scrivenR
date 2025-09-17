@@ -26,7 +26,7 @@ if (internal_convert==TRUE) {
   else {
     audio_files <- x |>
       str_subset(".wav$")
-  }
+}
 
 
   if (length(audio_files)==0) {

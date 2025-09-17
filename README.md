@@ -12,6 +12,17 @@ Now, I'll explain some of the prerequisites and give a few working examples of e
 
 ## Prerequisites
 
+### Installation & Package dependencies
+You will want to make sure you have the following packages installed and loaded:
+
+-   dplyr
+-   stringr
+-   readr
+-   audio.whisper
+-   parallel
+
+You can download this package by running `devtools::install_github("selked/scrivenR")`.
+
 ### Download Whisper Acoustic Model
 
 A major convenience of Whisper's is that it is open-source and thus allows us to freely download its acoustic model and use it from our local device. This is especially helpful in the case that we want transcriptions of recordings that include sensitive data, which we do not want to send through any third-party servers. This also allows us the convenience of running transcriptions completely offline.

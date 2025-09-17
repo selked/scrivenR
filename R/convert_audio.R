@@ -28,11 +28,12 @@ convert_audio <- function (x) {
 
 
       tic()
-      system(paste0("ffmpeg -i ", file, " -acodec pcm_s16le -ac 1 -ar 16000 ", file_path_sans_ext(file), "_converted.wav" ))
+      system(paste0("ffmpeg -i ", file, " -acodec pcm_s16le -ac 1 -ar 16000 ", file_path_sans_ext(file), "_converted.wav" ), show.output.on.console = FALSE)
       toc()
 
     }
+    print(paste0("Audio conversion completed. Output located in ", getwd()))
   }
-  print(paste0("Audio conversion completed. Output located in ", getwd()))
+
 
 }

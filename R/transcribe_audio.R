@@ -64,8 +64,9 @@ if (internal_convert==TRUE) {
 
 
     }
+    print(paste0("Transcription(s) complete. Output located in ", getwd()))
    }
   }
 }
-  print(paste0("Transcription(s) complete. Output located in ", getwd()))
+
 }

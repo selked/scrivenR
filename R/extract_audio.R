@@ -28,11 +28,12 @@ extract_audio <- function (x) {
 
 
     tic()
-    system(paste0("ffmpeg -i ", file, " -vn -ac 1 -ar 16000 -ab 320k -f wav ", file_path_sans_ext(file), "_converted.wav" ))
+    system(paste0("ffmpeg -i ", file, " -vn -ac 1 -ar 16000 -f wav ", file_path_sans_ext(file), "_converted.wav" ), show.output.on.console = FALSE)
     toc()
 
     }
+    print(paste0("Audio extraction completed. Output located in ", getwd()))
   }
-  print(paste0("Audio extraction completed. Output located in ", getwd()))
+
 
 }

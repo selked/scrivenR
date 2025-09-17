@@ -98,7 +98,7 @@ As opposed to the first two functions, this one has multiple arguments.
 
 -   ***`x`:*** A character vector of file names in your working directory
 -   ***`include_timing`:*** An option to specify whether you want line-by-line timestamps recorded in your output. This is set to `FALSE` by default.
--   ***`internal_convert`:*** An option to indicate whether your audio files were converted with functions internal to this package. This will take the `originalFileName_converted` re-naming format into account when filtering files in your directory for the transcription pipeline.
+-   ***`internal_convert`:*** An option to indicate whether your audio files were converted with functions internal to this package. This will take the `originalFileName_converted` re-naming format into account when filtering files in your directory for the transcription pipeline and is set to `TRUE` by default.
 -   ***`model_path`:*** A character vector of the path to your locally stored Whisper acoustic model. This argument is required and should look like `"C:/username/whispermodel/ggml-base.en.bin"`, but with your own directory- and model-specific information.
 -   ***`all_cores`:*** An option to indicate how many CPU cores you want to be utilized in parallel processing of the transcriptions. This is set to `FALSE` by default, wherein only half of your available cores will be used. If set to `TRUE`, parallel processing will include all CPU cores. I've found using all available cores to be pretty manageable, but note that it can slow some other things down while it's running.
 

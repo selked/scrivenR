@@ -104,7 +104,7 @@ convert_audio(list.files())
 
 ### transcribe_audio()
 
-This function is main thrust of the package, and it iterates through each of your appropriately formatted audio files and outputs a .txt containing the transcribed audio to your working directory.
+This function is the main thrust of the package, and it iterates through each of your appropriately formatted audio files and outputs a .txt containing the transcribed audio to your working directory.
 
 As opposed to the first two functions, this one has multiple arguments.
 

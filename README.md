@@ -120,5 +120,10 @@ setwd("C:/username/Desktop/files_to_be_transcribed")
 
 mp <- "C:/username/whispermodel/ggml-base.en.bin"
 
-transcribe_audio( x = list.files(), include_timing = FALSE, internal_convert = TRUE, model_path = mp, all_cores = FALSE )
+transcribe_audio(
+x = list.files(), 
+include_timing = FALSE, 
+internal_convert = TRUE, 
+model_path = mp,
+all_cores = FALSE)
 ```

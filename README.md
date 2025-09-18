@@ -61,10 +61,6 @@ So, if you want to make use of `extract_audio()` or `convert_audio()`, you will 
 
 Now that we have our prerequisites settled, we'll take a look at some of these functions and their intended workflows.
 
-But, before we begin, note that the `transcribe_audio()` function assumes your files will be formatted with 4 numbers, where an underscore separates two numbers on each side, e.g. `08_10.mp4`. I will probably customize this further in future updates, but I designed it to meet an initial case where files were labeled in 'month_day\` format.
-
-This allows for some customization in itself, but, in any case, make sure that whatever files you start with for the functions below are named in this `12_34` format.
-
 ### extract_audio()
 
 This is the function you want if you are starting with a video file, and you need a transcription of the audio. FFmpeg allows us to cleanly extract the audio and convert it to our required format with a single command, so we can do this pretty easily.

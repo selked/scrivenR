@@ -73,13 +73,13 @@ if (internal_convert==TRUE) {
     if (include_timing==TRUE) {
       print(paste0("Writing timed transcript for ", fn, "..."))
 
-      write_delim(trans$data, paste0(str_extract(fn, "^[:graph:]{5}"), "_timed_transcript.txt"), delim = "\t")
+      write_delim(trans$data, paste0(file_path_sans_ext(fn), "_timed_transcript.txt"), delim = "\t")
     }
 
     else {
       print(paste0("Writing text-only transcript for ", fn, "..."))
 
-      write_delim(speech, paste0(str_extract(fn, "^[:graph:]{5}"), "_transcript.txt"), delim = "\t")
+      write_delim(speech, paste0(file_path_sans_ext(fn), "_transcript.txt"), delim = "\t")
 
 
     }

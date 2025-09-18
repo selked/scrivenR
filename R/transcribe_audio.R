@@ -60,7 +60,8 @@ if (internal_convert==TRUE) {
       trans <- predict(model,
                        newdata = fn,
                        language = "en",
-                       n_threads = ceiling((n_cores/2)))
+                       n_threads = ceiling((n_cores/2))
+                       )
       toc()
 
       print(paste0("Finished transcribing ", fn, "."))

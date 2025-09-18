@@ -11,7 +11,7 @@
 #' transcribe_audio(list.files(), include_timing=TRUE, internal_convert=TRUE)
 
 
-transcribe_audio <- function(x, model_path, include_timing=FALSE, internal_convert=TRUE, all_cores = FALSE) {
+transcribe_audio <- function(x, model_path, include_timing = FALSE, internal_convert = TRUE, all_cores = FALSE) {
 
 if (missing(model_path)) {
   stop("Path to Whisper acoustic model must be specified. Enter the directory containing the model downloaded with audio.whisper, or use its whisper() function to download one of the acoustic models and enter that path here.")

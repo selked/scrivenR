@@ -88,7 +88,7 @@ extract_audio(list.files())
 
 ### convert_audio()
 
-The architecture of this function is very similar to `extract_audio()`, but it is intended for use when you already have audio files, but you need them converted to Whisper's required 16-bit mono .WAV format. Provide a character vector of file names in the directory containing your audio files, and the function will filter by common audio-format extensions and, for each file, output `originalFileName_converted.wav`.
+The architecture of this function is very similar to `extract_audio()`, but it is intended for use when you already have audio files and you just need them converted to Whisper's required 16-bit mono .WAV format. Provide a character vector of file names in the directory containing your audio files, and the function will filter by common audio-format extensions and, for each file, output `originalFileName_converted.wav`.
 
 **Accepted file formats:** 
 -   .wav 

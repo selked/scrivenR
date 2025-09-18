@@ -53,9 +53,9 @@ Once you have that situated, there's one more important prerequisite.
 
 In order to extract audio from videos or convert files in other audio formats, this package uses ffmpeg. This is a lightweight but extremely powerful audio and video processing program that is run entirely from the command-line or terminal.
 
-I'll mention that R does have the very neat `av` package, which binds R with ffmpeg, but I haven't always had the best luck with longer (1 hr+) files. Your mileage may well vary, so feel free to try it out, but I found that files taking me upwards of 45 minutes to convert with `av` could be converted in seconds with ffmpeg.
+I'll mention that R does have the very neat `av` package, which binds R with ffmpeg, but I haven't always had the best luck with longer (1 hr+) files. Your mileage may well vary, and it handles many other audio-processing tasks as well, so I encourage you to try it out. But I found that files taking me upwards of 45 minutes to convert with `av` could be converted in seconds by calling ffmpeg directly through the command-line interface.
 
-So, if you want to make use of `extract_audio()` or `convert_audio()`, you will need to make sure you have ffmpeg installed. I leverage R's `system()` function to call ffmpeg commands using your file names. You can download ffmpeg [here](https://www.ffmpeg.org/download.html). I'm on Windows, and I typically download the most recent, stable 'full' build from gyan.dev. Make sure that the location of your ffmpeg bin file is added to your PATH system environment variable.
+So, if you want to make use of `extract_audio()` or `convert_audio()`, you will need to make sure you have ffmpeg installed. You can download ffmpeg [here](https://www.ffmpeg.org/download.html). I'm on Windows, and I typically download the most recent, stable 'full' build from gyan.dev. Make sure that the location of your ffmpeg bin file is added to your PATH system environment variable.
 
 ## Example Code for Functions
 

@@ -6,7 +6,7 @@ This package provides a few convenience functions for batch-processing of audio 
 
 Automatic transcription is performed with [Whisper](https://github.com/openai/whisper). I do most of my work in R, which includes the excellent [`audio.whisper`](https://community.r-multiverse.org/audio.whisper/doc/manual.html) package. This allows for easy transcription of individual audio files, but I wanted some ready-made functions for batch processing of file-conversion and automatic transcription. That's where `scrivenR` comes in.
 
-This package comprises three functions: `extract_audio()`, `convert_audio()`, and `transcribe_audio()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this task, depending on whether we start with a video file or an inappropriately formatted audio files. The third function—assuming that we have now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory.
+This package comprises three functions: `extract_audio()`, `convert_audio()`, and `transcribe_audio()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this task, depending on whether we start with a video file or an inappropriately formatted audio files. The third function—assuming that we now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory.
 
 Now, I'll explain some of the prerequisites and give a few working examples of each function.
 
@@ -110,10 +110,10 @@ This function is the main thrust of the package, and it iterates through each of
 Unlike the first two functions, this one has multiple arguments.
 
 -   **`x`:** A character vector of file names in your working directory
--   **`include_timing`:** An option to specify whether you want line-by-line timestamps recorded in your output. This is set to `FALSE` by default.
--   **`internal_convert`:** An option to indicate whether your audio files were converted with functions internal to this package. This will take the `originalFileName_converted` re-naming format into account when filtering files in your directory for the transcription pipeline and is set to `TRUE` by default.
--   **`model_path`:** A character string of the path to your locally stored Whisper acoustic model. This argument is required and should look like `"C:/username/whispermodel/ggml-base.en.bin"`, but with your own directory- and model-specific information.
--   **`all_cores`:** An option to indicate whether you want to utilize all of your CPU cores in parallel processing of the transcriptions. This is set to `FALSE` by default, wherein only half of your available cores will be used. If set to `TRUE`, parallel processing will include all CPU cores. I've found using all available cores to be pretty manageable, but note that it can slow some other things down while it's running.
+-   **`include_timing`:** An option to specify whether you want line-by-line timestamps recorded in your output. This is set to 'FALSE' by default.
+-   **`internal_convert`:** An option to indicate whether your audio files were converted with functions internal to this package. This will take the 'originalFileName_converted' re-naming format into account when filtering files in your directory for the transcription pipeline and is set to 'TRUE' by default.
+-   **`model_path`:** A character string of the path to your locally stored Whisper acoustic model. This argument is required and should look like "C:/username/whispermodel/ggml-base.en.bin", but with your own directory- and model-specific information.
+-   **`all_cores`:** An option to indicate whether you want to utilize all of your CPU cores in parallel processing of the transcriptions. This is set to 'FALSE' by default, wherein only half of your available cores will be used. If set to 'TRUE', parallel processing will include all CPU cores. I've found using all available cores to be pretty manageable, but note that it can slow some other things down while it's running.
 
 **Example:**
 ```{r, eval=FALSE} 

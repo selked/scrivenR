@@ -6,14 +6,16 @@
 \usage{
 transcribe_audio(
   x,
-  include_timing = TRUE,
-  internal_convert = TRUE,
   model_path,
+  include_timing = FALSE,
+  internal_convert = TRUE,
   all_cores = FALSE
 )
 }
 \arguments{
-\item{x}{Output of list.files() in working directory containing videos}
+\item{x}{Output of list.files() in working directory containing audio}
+
+\item{model_path}{A character string of the path for your local Whisper acoustic model; this is required}
 
 \item{include_timing}{Option to include timestamps for each line of text, default=TRUE}
 

@@ -1,7 +1,8 @@
 #' Transcribe 16-bit Mono .WAV file
 #'
 #' This function takes a list of file names for 16-bit mono WAVs and applies batch processing of automatic transcription using Whisper.
-#' @param x Output of list.files() in working directory containing videos
+#' @param x Output of list.files() in working directory containing audio
+#' @param model_path A character string of the path for your local Whisper acoustic model; this is required
 #' @param include_timing Option to include timestamps for each line of text, default=TRUE
 #' @param internal_convert Option to retain naming format for conversions made with this package, default=TRUE
 #' @param all_cores Use all available CPU cores for parallel processing (otherwise, half will be used), default=FALSE

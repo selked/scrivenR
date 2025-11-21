@@ -5,11 +5,12 @@
 #' @param model_path A character string of the path for your local Whisper acoustic model; this is required
 #' @param include_timing Option to include timestamps for each line of text, default=TRUE
 #' @param internal_convert Option to retain naming format for conversions made with this package, default=TRUE
+#' @param write_textgrids Option to print time-aligned .TextGrid files for use in Praat; FALSE by default
 #' @param all_cores Use all available CPU cores for parallel processing (otherwise, half will be used), default=FALSE
 #' @keywords transcription, whisper, ASR, batch-processing
 #' @export
 #' @examples
-#' transcribe_audio(list.files(), include_timing=TRUE, internal_convert=TRUE)
+#' transcribe_audio(list.files(), model_path = mp, include_timing=TRUE, internal_convert=TRUE, write_textgrids = FALSE, all_cores = FALSE)
 
 
 transcribe_audio <- function(x, model_path, include_timing = FALSE, internal_convert = TRUE, write_textgrids = FALSE, all_cores = FALSE) {
@@ -103,10 +104,9 @@ if (internal_convert==TRUE) {
 
       create_empty_textgrid(
         duration = dur+1,
-        tier_name = c("Speaker 1"),
         point_tier = NULL,
         path = getwd(),
-        result_file_name = paste0(fn)
+        result_file_name = paste0(file_path_sans_ext(fn))
       )
 
       text_grids <- list.files()

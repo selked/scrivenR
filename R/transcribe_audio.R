@@ -12,7 +12,7 @@
 #' transcribe_audio(list.files(), include_timing=TRUE, internal_convert=TRUE)
 
 
-transcribe_audio <- function(x, model_path, include_timing = FALSE, internal_convert = TRUE, all_cores = FALSE) {
+transcribe_audio <- function(x, model_path, include_timing = FALSE, internal_convert = TRUE, write_textgrids = FALSE, all_cores = FALSE) {
 
 if (missing(model_path)) {
   stop("Path to Whisper acoustic model must be specified. Enter the directory containing the model downloaded with audio.whisper, or use its whisper() function to download one of the acoustic models and enter that path here.")
@@ -84,6 +84,44 @@ if (internal_convert==TRUE) {
       write_delim(speech, paste0(file_path_sans_ext(fn), "_transcript.txt"), delim = "\t")
 
 
+    }
+
+    if (write_textgrids == TRUE) {
+      print(paste0("Writing Praat TextGrid for ", fn, "..."))
+
+      chk <- trans$data
+
+      names(chk)[4] <- "content"
+
+      chk <- chk |>
+        mutate(time_start = period_to_seconds(hms(from))) |>
+        mutate(time_end = period_to_seconds(hms(to))) |>
+        select(content, time_start, time_end)
+
+      dur <- get_sound_duration(fn)
+      dur <- dur[1,2]
+
+      create_empty_textgrid(
+        duration = dur+1,
+        tier_name = c("Speaker 1"),
+        point_tier = NULL,
+        path = getwd(),
+        result_file_name = paste0(fn)
+      )
+
+      text_grids <- list.files()
+
+      text_grids <- str_subset(".TextGrid$")
+
+      for (tg in text_grids) {
+
+      df_to_tier(
+        chk,
+        textgrid = tg,
+        tier_name = "Speaker 1",
+        overwrite = TRUE)
+
+      }
     }
 
     }

@@ -95,6 +95,7 @@ if (internal_convert==TRUE) {
       names(chk)[4] <- "content"
 
       chk <- chk |>
+        str_remove_all(content, '"') |>
         mutate(time_start = period_to_seconds(hms(from))) |>
         mutate(time_end = period_to_seconds(hms(to))) |>
         select(content, time_start, time_end)

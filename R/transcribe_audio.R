@@ -104,7 +104,7 @@ if (internal_convert==TRUE) {
       dur <- dur[1,2]
 
       create_empty_textgrid(
-        duration = dur+10,
+        duration = dur+5,
         point_tier = NULL,
         path = getwd(),
         result_file_name = paste0(file_path_sans_ext(fn))

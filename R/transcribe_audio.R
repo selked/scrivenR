@@ -114,7 +114,7 @@ if (internal_convert==TRUE) {
       text_grids <- list.files()
 
       text_grids <- text_grids |>
-        str_subset(".TextGrid$")
+        str_subset(paste0(file_path_sans_ext(fn), ".TextGrid$"))
 
       for (tg in text_grids) {
 

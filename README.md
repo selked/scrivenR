@@ -102,7 +102,7 @@ convert_audio(list.files())
 
 ### transcribe_audio()
 
-This function is the main thrust of the package and is essentially a convenience wrapper for `audio.whisper::predict` that facilitates batch processing and provides some additional output options. The function iterates through each of your appropriately formatted audio files and outputs each transcription as a plain-text file.
+This function is the main thrust of the package and is essentially a convenience wrapper for [`audio.whisper::predict`](https://community.r-multiverse.org/audio.whisper/doc/manual.html#predict.whisper) that facilitates batch processing and provides some additional output options. The function iterates through each of your appropriately formatted audio files and outputs each transcription as a plain-text file.
 
 You also have the option of using the transcription to generate a time-aligned [Praat](https://www.fon.hum.uva.nl/praat/) TextGrid for each audio file. This is accomplished by leveraging some functions from the very neat [phonfieldwork](https://github.com/ropensci/phonfieldwork) package.
 

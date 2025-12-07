@@ -22,6 +22,7 @@ You will want to make sure you have the following packages installed and loaded:
 -   parallel
 -   tools
 -   tictoc
+-   phonfieldwork
 
 You can download `scrivenR` by running `devtools::install_github("selked/scrivenR")`.
 

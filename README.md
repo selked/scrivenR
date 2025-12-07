@@ -101,7 +101,9 @@ convert_audio(list.files())
 
 ### transcribe_audio()
 
-This function is the main thrust of the package, and it iterates through each of your appropriately formatted audio files and outputs a .txt file containing the transcribed audio to your working directory. You also have the option of using the transcription to generate a time-aligned Praat TextGrid for each audio file.
+This function is the main thrust of the package, and it relies primarily on `audio.whisper::predict`. It iterates through each of your appropriately formatted audio files and outputs a .txt file containing the transcribed audio to your working directory. 
+
+You also have the option of using the transcription to generate a time-aligned [Praat](https://www.fon.hum.uva.nl/praat/) TextGrid for each audio file. This is accomplished by leveraging some simple functions from the very neat [phonfieldwork](https://github.com/ropensci/phonfieldwork) package.
 
 Unlike the first two functions, this one has multiple arguments.
 

@@ -9,6 +9,7 @@ transcribe_audio(
   model_path,
   include_timing = FALSE,
   internal_convert = TRUE,
+  write_textgrids = FALSE,
   all_cores = FALSE
 )
 }
@@ -19,7 +20,9 @@ transcribe_audio(
 
 \item{include_timing}{Option to include timestamps for each line of text, default=TRUE}
 
-\item{internal_convert}{Option to retain naming format for conversions made with this package, default=TRUE}
+\item{internal_convert}{Option to retain naming format for conversions made with this package, default=TRUE. Setting to FALSE will point the function at any .WAVs in the working directory.}
+
+\item{write_textgrids}{Option to print time-aligned .TextGrid files for use in Praat; FALSE by default}
 
 \item{all_cores}{Use all available CPU cores for parallel processing (otherwise, half will be used), default=FALSE}
 }
@@ -27,7 +30,7 @@ transcribe_audio(
 This function takes a list of file names for 16-bit mono WAVs and applies batch processing of automatic transcription using Whisper.
 }
 \examples{
-transcribe_audio(list.files(), include_timing=TRUE, internal_convert=TRUE)
+transcribe_audio(list.files(), model_path = mp, include_timing=TRUE, internal_convert=TRUE, write_textgrids = FALSE, all_cores = FALSE)
 }
 \keyword{ASR,}
 \keyword{batch-processing}

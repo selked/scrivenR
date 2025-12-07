@@ -4,7 +4,7 @@
 #' @param x Output of list.files() in working directory containing audio
 #' @param model_path A character string of the path for your local Whisper acoustic model; this is required
 #' @param include_timing Option to include timestamps for each line of text, default=TRUE
-#' @param internal_convert Option to retain naming format for conversions made with this package, default=TRUE
+#' @param internal_convert Option to retain naming format for conversions made with this package, default=TRUE. Setting to FALSE will point the function at any .WAVs in the working directory.
 #' @param write_textgrids Option to print time-aligned .TextGrid files for use in Praat; FALSE by default
 #' @param all_cores Use all available CPU cores for parallel processing (otherwise, half will be used), default=FALSE
 #' @keywords transcription, whisper, ASR, batch-processing

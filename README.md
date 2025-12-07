@@ -102,14 +102,14 @@ convert_audio(list.files())
 
 ### transcribe_audio()
 
-This function is the main thrust of the package, and it relies primarily on `audio.whisper::predict`. It iterates through each of your appropriately formatted audio files and outputs a .txt file containing the transcribed audio to your working directory. 
+This function is the main thrust of the package and is essentially a convenience wrapper for `audio.whisper::predict` that facilitates batch processing and provides some additional output options. The function iterates through each of your appropriately formatted audio files and outputs each transcription as a plain-text file.
 
-You also have the option of using the transcription to generate a time-aligned [Praat](https://www.fon.hum.uva.nl/praat/) TextGrid for each audio file. This is accomplished by leveraging some simple functions from the very neat [phonfieldwork](https://github.com/ropensci/phonfieldwork) package.
+You also have the option of using the transcription to generate a time-aligned [Praat](https://www.fon.hum.uva.nl/praat/) TextGrid for each audio file. This is accomplished by leveraging some functions from the very neat [phonfieldwork](https://github.com/ropensci/phonfieldwork) package.
 
-Unlike the first two functions, this one has multiple arguments.
+Unlike the first two functions in this package, `transcribe_audio()` has multiple arguments.
 
 -   **`x`:** A character vector of file names in your working directory
--   **`include_timing`:** An option to specify whether you want line-by-line timestamps recorded in your output. This is set to 'FALSE' by default.
+-   **`include_timing`:** An option to specify whether you want line-by-line timestamps recorded in your plain-text output. This is set to 'FALSE' by default.
 -   **`internal_convert`:** An option to indicate whether your audio files were converted with functions internal to this package. This will take the 'originalFileName_converted' re-naming format into account when filtering files in your directory for the transcription pipeline and is set to 'TRUE' by default. When set to FALSE, the function will operate on any .WAV file in the working directory.
 -   **`write_textgrids`:** An option to write a Praat TextGrid file for each .WAV---set to FALSE by default
 -   **`model_path`:** A character string of the path to your locally stored Whisper acoustic model. This argument is required and should look like "C:/username/whispermodel/ggml-base.en.bin", but with your own directory- and model-specific information.

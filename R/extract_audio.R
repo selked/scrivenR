@@ -24,7 +24,7 @@ extract_audio <- function (x) {
 
   for (file in video_files) {
 
-    print(paste0("Extracting audio from ", file, " and converting to 16-bit mono"))
+    message(paste0("Extracting audio from ", file, " and converting to 16-bit mono"))
 
 
     tic()
@@ -32,7 +32,7 @@ extract_audio <- function (x) {
     toc()
 
     }
-    print(paste0("Audio extraction completed. Output located in ", getwd()))
+    message(paste0("Audio extraction completed. Output located in ", getwd()))
   }
 
 

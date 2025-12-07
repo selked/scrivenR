@@ -42,7 +42,7 @@ if (internal_convert==TRUE) {
 
   for (fn in audio_files) {
 
-    print(paste0("Transcribing ", fn, "..."))
+    message(paste0("Transcribing ", fn, "..."))
 
     if (all_cores == TRUE) {
 
@@ -53,7 +53,7 @@ if (internal_convert==TRUE) {
                      n_threads = n_cores)
     toc()
 
-    print(paste0("Finished transcribing ", fn, "."))
+    message(paste0("Finished transcribing ", fn, "."))
 }
 
     else {
@@ -66,7 +66,7 @@ if (internal_convert==TRUE) {
                        )
       toc()
 
-      print(paste0("Finished transcribing ", fn, "."))
+      message(paste0("Finished transcribing ", fn, "."))
     }
 
 
@@ -74,13 +74,13 @@ if (internal_convert==TRUE) {
       select(text)
 
     if (include_timing==TRUE) {
-      print(paste0("Writing timed transcript for ", fn, "..."))
+      message(paste0("Writing timed transcript for ", fn, "..."))
 
       write_delim(trans$data, paste0(file_path_sans_ext(fn), "_timed_transcript.txt"), delim = "\t")
     }
 
     else {
-      print(paste0("Writing text-only transcript for ", fn, "..."))
+      message(paste0("Writing text-only transcript for ", fn, "..."))
 
       write_delim(speech, paste0(file_path_sans_ext(fn), "_transcript.txt"), delim = "\t")
 
@@ -88,7 +88,7 @@ if (internal_convert==TRUE) {
     }
 
     if (write_textgrids == TRUE) {
-      print(paste0("Writing Praat TextGrid for ", fn, "..."))
+      message(paste0("Writing Praat TextGrid for ", fn, "..."))
 
       chk <- trans$data
 
@@ -128,7 +128,7 @@ if (internal_convert==TRUE) {
     }
 
     }
-    print(paste0("Transcription(s) complete. Output located in ", getwd()))
+    message(paste0("Transcription(s) complete. Output located in ", getwd()))
   }
 }
 

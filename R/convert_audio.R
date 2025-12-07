@@ -24,7 +24,7 @@ convert_audio <- function (x) {
 
     for (file in audio_files) {
 
-      print(paste0("Converting ", file, " to 16-bit mono"))
+      message(paste0("Converting ", file, " to 16-bit mono"))
 
 
       tic()
@@ -32,7 +32,7 @@ convert_audio <- function (x) {
       toc()
 
     }
-    print(paste0("Audio conversion completed. Output located in ", getwd()))
+    message(paste0("Audio conversion completed. Output located in ", getwd()))
   }
 
 

@@ -50,8 +50,7 @@ transcribe_linux <- function(x, model_path, include_timing = FALSE, internal_con
           trans <- predict(model,
                            newdata = fn,
                            language = "en",
-                           n_threads = n_threads,
-                           use_gpu = TRUE)
+                           n_threads = n_threads)
           toc()
 
           message(paste0("Finished transcribing ", fn, "."))

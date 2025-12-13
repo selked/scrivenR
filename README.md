@@ -130,3 +130,35 @@ write_textgrids = FALSE,
 all_cores = FALSE
 )
 ```
+
+### transcribe_linux()
+
+This last function is designed to adapt `transcribe_audio()`'s batch-processing commands for the approach outlined in Jeffrey Girard's [awesome tutorial on using `audio.whisper` with the Windows Subsystem for Linux](https://affcom.ku.edu/posts/whisper2024b/#install-and-update-the-windows-subsystem-for-linux). See here some other neat computational tools developed by Girard and his colleagues at [University of Kansas's Affective Communication and Computing Lab](https://affcom.ku.edu/) 
+
+By default, `transcribe_audio()` works with your CPU, but, if possible, drawing on a dedicated GPU can drastically improve transcription speed. Nvidia users in particular stand to benefit from `audio.whisper`'s implementation of the CUDA toolkit. 
+
+So, `transcribe_linux()` is more or less the same as `transcribe_audio()`, with a few minor adjustments to call on this GPU capability. You must have an Nvidia GPU with CUDA capability in order to use `transcribe_linux()`. You must also be capable of running R in Linux. See `audio.whisper`'s [GitHub page](https://github.com/bnosac/audio.whisper) for more details on GPU capability for Macs, and I strongly recommend the Girard tutorial linked above for anyone looking to get started with the Linux approach.
+
+
+-   **`x`:** A character vector of file names in your working directory
+-   **`include_timing`:** An option to specify whether you want line-by-line timestamps recorded in your plain-text output. This is set to 'FALSE' by default.
+-   **`internal_convert`:** An option to indicate whether your audio files were converted with functions internal to this package. This will take the 'originalFileName_converted' re-naming format into account when filtering files in your directory for the transcription pipeline and is set to 'TRUE' by default. When set to FALSE, the function will operate on any .WAV file in the working directory.
+-   **`write_textgrids`:** An option to write a Praat TextGrid file for each .WAV---set to FALSE by default
+-   **`model_path`:** A character string of the path to your locally stored Whisper acoustic model. This argument is required and should look like "C:/username/whispermodel/ggml-base.en.bin", but with your own directory- and model-specific information.
+-   **`n_threads`:** The number of CPU threads you'd like to utilize in parallel procesing. Use parallel:detectCores() if you're unsure how many you can devote. Default is `1`, indicating single-thread processing
+
+**Example:**
+```{r, eval=FALSE} 
+setwd("/mnt/c/Users/username/Desktop/files_to_be_transcribed")
+
+mp <- "mnt/c/Users/username/whispermodel/ggml-base.en.bin"
+
+transcribe_audio(
+x = list.files(),
+model_path = mp,
+include_timing = FALSE, 
+internal_convert = TRUE,
+write_textgrids = FALSE,
+n_threads = 1
+)
+```

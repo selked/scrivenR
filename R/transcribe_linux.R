@@ -22,7 +22,7 @@ transcribe_linux <- function(x, model_path, include_timing = FALSE, internal_con
 
 
 
-    model <- whisper(model_path)
+    model <- whisper(model_path, use_gpu = TRUE)
 
     if (internal_convert==TRUE) {
       audio_files <- x |>

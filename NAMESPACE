@@ -3,3 +3,4 @@
 export(convert_audio)
 export(extract_audio)
 export(transcribe_audio)
+export(transcribe_linux)

@@ -133,11 +133,11 @@ all_cores = FALSE
 
 ### transcribe_linux()
 
-This last function is designed to adapt `transcribe_audio()`'s batch-processing commands for the approach outlined in Jeffrey Girard's [awesome tutorial on using `audio.whisper` with the Windows Subsystem for Linux](https://affcom.ku.edu/posts/whisper2024b/#install-and-update-the-windows-subsystem-for-linux). See here some other neat computational tools developed by Girard and his colleagues at [University of Kansas's Affective Communication and Computing Lab](https://affcom.ku.edu/) 
+This last function is designed to adapt `transcribe_audio()`'s batch-processing commands for the approach outlined in Jeffrey Girard's [awesome tutorial on using `audio.whisper` with the Windows Subsystem for Linux](https://affcom.ku.edu/posts/whisper2024b/). See here some other neat computational tools developed by Girard and his colleagues at [University of Kansas's Affective Communication and Computing Lab](https://affcom.ku.edu/) 
 
 By default, `transcribe_audio()` works with your CPU, but, if possible, drawing on a dedicated GPU can drastically improve transcription speed. Nvidia users in particular stand to benefit from `audio.whisper`'s implementation of the CUDA toolkit. 
 
-So, `transcribe_linux()` is more or less the same as `transcribe_audio()`, with a few minor adjustments to call on this GPU capability. You must have an Nvidia GPU with CUDA capability in order to use `transcribe_linux()`. You must also be capable of running R in Linux. See `audio.whisper`'s [GitHub page](https://github.com/bnosac/audio.whisper) for more details on GPU capability for Macs, and I strongly recommend the Girard tutorial linked above for anyone looking to get started with the Linux approach.
+So, `transcribe_linux()` is more or less the same as `transcribe_audio()`, with a few minor adjustments to call on this GPU capability. You must have an Nvidia GPU with CUDA compatibility in order to use `transcribe_linux()`. You must also be to run R in Linux. See `audio.whisper`'s [GitHub page](https://github.com/bnosac/audio.whisper) for more details on GPU capability for Macs, and I strongly recommend the Girard tutorial linked above for anyone looking to get started with the Linux approach.
 
 
 -   **`x`:** A character vector of file names in your working directory

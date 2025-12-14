@@ -6,21 +6,19 @@
 #' @param include_timing Option to include timestamps for each line of text, default=TRUE
 #' @param internal_convert Option to retain naming format for conversions made with this package, default=TRUE. Setting to FALSE will point the function at any .WAVs in the working directory.
 #' @param write_textgrids Option to print time-aligned .TextGrid files for use in Praat; FALSE by default
-#' @param all_cores Use all available CPU cores for parallel processing (otherwise, half will be used), default=FALSE
+#' @param n_threads The number of CPU threads to be used in parallel processing. Default value is 1, i.e. single-thread processing.
 #' @keywords transcription, whisper, ASR, batch-processing
 #' @export
 #' @examples
 #' transcribe_audio(list.files(), model_path = mp, include_timing=TRUE, internal_convert=TRUE, write_textgrids = FALSE, all_cores = FALSE)
 
 
-transcribe_audio <- function(x, model_path, include_timing = FALSE, internal_convert = TRUE, write_textgrids = FALSE, all_cores = FALSE) {
+transcribe_audio <- function(x, model_path, include_timing = FALSE, internal_convert = TRUE, write_textgrids = FALSE, n_threads = 1) {
 
 if (missing(model_path)) {
   stop("Path to Whisper acoustic model must be specified. Enter the directory containing the model downloaded with audio.whisper, or use its whisper() function to download one of the acoustic models and enter that path here.")
 }
   else {
-
-n_cores <- as.numeric(detectCores())
 
 model <- whisper(model_path)
 
@@ -44,30 +42,16 @@ if (internal_convert==TRUE) {
 
     message(paste0("Transcribing ", fn, "..."))
 
-    if (all_cores == TRUE) {
 
-    tic()
-    trans <- predict(model,
-                     newdata = fn,
-                     language = "en",
-                     n_threads = n_cores)
-    toc()
 
-    message(paste0("Finished transcribing ", fn, "."))
-}
-
-    else {
-
-      tic()
       trans <- predict(model,
                        newdata = fn,
                        language = "en",
-                       n_threads = ceiling((n_cores/2))
+                       n_threads = n_threads
                        )
-      toc()
-
       message(paste0("Finished transcribing ", fn, "."))
-    }
+      print(trans$timing)
+
 
 
     speech <- trans$data |>

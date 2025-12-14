@@ -10,7 +10,7 @@ transcribe_audio(
   include_timing = FALSE,
   internal_convert = TRUE,
   write_textgrids = FALSE,
-  all_cores = FALSE
+  n_threads = 1
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ transcribe_audio(
 
 \item{write_textgrids}{Option to print time-aligned .TextGrid files for use in Praat; FALSE by default}
 
-\item{all_cores}{Use all available CPU cores for parallel processing (otherwise, half will be used), default=FALSE}
+\item{n_threads}{The number of CPU threads to be used in parallel processing. Default value is 1, i.e. single-thread processing.}
 }
 \description{
 This function takes a list of file names for 16-bit mono WAVs and applies batch processing of automatic transcription using Whisper.

@@ -50,7 +50,7 @@ if (internal_convert==TRUE) {
                        n_threads = n_threads
                        )
       message(paste0("Finished transcribing ", fn, "."))
-      print(trans$timing)
+      message(trans$timing)
 
 
 

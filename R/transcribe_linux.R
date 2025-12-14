@@ -54,7 +54,7 @@ transcribe_linux <- function(x, model_path, include_timing = FALSE, internal_con
 
 
           message(paste0("Finished transcribing ", fn, "."))
-          message(trans$timing)
+          print(trans$timing)
 
           speech <- trans$data |>
           select(text)

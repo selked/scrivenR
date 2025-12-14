@@ -6,7 +6,7 @@ This package provides a few convenience functions for batch-processing of audio 
 
 Automatic transcription is performed with [Whisper](https://github.com/openai/whisper). I do most of my work in R, which includes the excellent [audio.whisper](https://github.com/bnosac/audio.whisper) package. This allows for easy transcription of individual audio files, but I wanted some ready-made functions for batch processing of file-conversion and automatic transcription. That's where `scrivenR` comes in.
 
-This package comprises three functions: `extract_audio()`, `convert_audio()`, and `transcribe_audio()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this task, depending on whether we start with a video file or an inappropriately formatted audio files. The third function—assuming that we now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory.
+This package comprises four functions: `extract_audio()`, `convert_audio()`, `transcribe_audio()`, and `transcribe_audio()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this task, depending on whether we start with a video file or an inappropriately formatted audio files. The third function—assuming that we now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory.
 
 Now, I'll explain some of the prerequisites and give a few working examples of each function.
 
@@ -144,7 +144,7 @@ So, `transcribe_linux()` is more or less the same as `transcribe_audio()`, with 
 -   **`internal_convert`:** An option to indicate whether your audio files were converted with functions internal to this package. This will take the 'originalFileName_converted' re-naming format into account when filtering files in your directory for the transcription pipeline and is set to 'TRUE' by default. When set to FALSE, the function will operate on any .WAV file in the working directory.
 -   **`write_textgrids`:** An option to write a Praat TextGrid file for each .WAV---set to FALSE by default
 -   **`model_path`:** A character string of the path to your locally stored Whisper acoustic model. This argument is required and should look like "C:/username/whispermodel/ggml-base.en.bin", but with your own directory- and model-specific information.
--   **`n_threads`:** The number of CPU threads you'd like to utilize in parallel procesing. Use parallel:detectCores() if you're unsure how many you can devote. Default is `1`, indicating single-thread processing
+-   **`n_threads`:** The number of CPU threads you'd like to utilize in parallel procesing. Use `parallel:detectCores()` if you're unsure how many you can devote. Default is `1`, indicating single-thread processing
 
 **Example:**
 ```{r, eval=FALSE} 

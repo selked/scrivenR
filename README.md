@@ -126,7 +126,7 @@ model_path = mp,
 include_timing = FALSE, 
 internal_convert = TRUE,
 write_textgrids = FALSE,
-all_cores = FALSE
+n_threads = 1
 )
 ```
 

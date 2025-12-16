@@ -46,15 +46,20 @@ transcribe_linux <- function(x, model_path, include_timing = FALSE, internal_con
 
 
 
-
+          start_time <- now()
           trans <- predict(model,
                            newdata = fn,
                            language = "en",
                            n_threads = n_threads)
-
+          end_time <- now()
 
           message(paste0("Finished transcribing ", fn, "."))
-          print(trans$timing)
+          message(sprintf(
+            "Transcription completed in %.5f %s",
+            end_time - start_time,
+            units(difftime(end_time, start_time))
+            )
+            )
 
           speech <- trans$data |>
           select(text)

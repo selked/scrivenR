@@ -27,12 +27,18 @@ convert_audio <- function (x) {
       message(paste0("Converting ", file, " to 16-bit mono"))
 
 
-      tic()
+      start_time <- now()
       system(paste0("ffmpeg -i ", file, " -acodec pcm_s16le -ac 1 -ar 16000 ", file_path_sans_ext(file), "_converted.wav" ), show.output.on.console = FALSE)
-      toc()
+      end_time <- now()
+      message(sprintf(
+        "Finished converting audio in %.5f %s",
+        end_time - start_time,
+        units(difftime(end_time, start_time))
+      )
+      )
 
     }
-    message(paste0("Audio conversion completed. Output located in ", getwd()))
+    message(paste0("All audio conversions completed. Output located in ", getwd()))
   }
 
 

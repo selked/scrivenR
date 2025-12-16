@@ -43,14 +43,20 @@ if (internal_convert==TRUE) {
     message(paste0("Transcribing ", fn, "..."))
 
 
-
+      start_time <- now()
       trans <- predict(model,
                        newdata = fn,
                        language = "en",
                        n_threads = n_threads
                        )
+      end_time <- now()
       message(paste0("Finished transcribing ", fn, "."))
-      message(trans$timing)
+      message(sprintf(
+        "Transcription completed in %.5f %s",
+        end_time - start_time,
+        units(difftime(end_time, start_time))
+      )
+      )
 
 
 

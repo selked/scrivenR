@@ -27,9 +27,15 @@ extract_audio <- function (x) {
     message(paste0("Extracting audio from ", file, " and converting to 16-bit mono"))
 
 
-    tic()
+    start_time <- now()
     system(paste0("ffmpeg -i ", file, " -vn -ac 1 -ar 16000 -f wav ", file_path_sans_ext(file), "_converted.wav" ), show.output.on.console = FALSE)
-    toc()
+    end_time <- now()
+    message(sprintf(
+      "Finished extracting audio in %.5f %s",
+      end_time - start_time,
+      units(difftime(end_time, start_time))
+    )
+    )
 
     }
     message(paste0("Audio extraction completed. Output located in ", getwd()))

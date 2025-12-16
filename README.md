@@ -133,7 +133,7 @@ n_threads = 1
 
 ### transcribe_linux()
 
-This last function is designed to adapt `transcribe_audio()`'s batch-processing commands for the approach outlined in Jeffrey Girard's [awesome tutorial on using `audio.whisper` with the Windows Subsystem for Linux](https://affcom.ku.edu/posts/whisper2024b/). You can find that tutorial [here](https://affcom.ku.edu/posts/whisper2024b/), along with other neat computational tools developed by Girard and his colleagues at [University of Kansas's Affective Communication and Computing Lab](https://affcom.ku.edu/). 
+This last function is designed to adapt `transcribe_audio()`'s batch-processing commands for the approach outlined in Jeffrey Girard's awesome tutorial on using `audio.whisper` with the Windows Subsystem for Linux. You can find that tutorial [here](https://affcom.ku.edu/posts/whisper2024b/), along with other neat computational tools developed by Girard and his colleagues at [University of Kansas's Affective Communication and Computing Lab](https://affcom.ku.edu/). 
 
 By default, `transcribe_audio()` works with your CPU, but, if possible, drawing on a dedicated GPU can drastically improve transcription speed. Nvidia users in particular stand to benefit from `audio.whisper`'s implementation of the CUDA toolkit. 
 

@@ -6,7 +6,7 @@ This package provides a few convenience functions for batch-processing of audio 
 
 Automatic transcription is performed with [Whisper](https://github.com/openai/whisper). I do most of my work in R, which includes the excellent [audio.whisper](https://github.com/bnosac/audio.whisper) package. This allows for easy transcription of individual audio files, but I wanted some ready-made functions for batch processing of file-conversion and automatic transcription. That's where `scrivenR` comes in.
 
-This package comprises four functions: `extract_audio()`, `convert_audio()`, `transcribe_audio()`, and `transcribe_audio()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this task, depending on whether we start with a video file or an inappropriately formatted audio files. The third function—assuming that we now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory.
+This package comprises four functions: `extract_audio()`, `convert_audio()`, `transcribe_audio()`, and `transcribe_linux()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this task, depending on whether we start with a video file or an inappropriately formatted audio files. The third function—assuming that we now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory.
 
 Now, I'll explain some of the prerequisites and give a few working examples of each function.
 
@@ -22,6 +22,7 @@ You will want to make sure you have the following packages installed and loaded:
 -   parallel
 -   tools
 -   phonfieldwork
+-   voice
 
 You can download `scrivenR` by running `devtools::install_github("selked/scrivenR")`.
 
@@ -63,7 +64,7 @@ Now that we have our prerequisites settled, we'll take a look at some of these f
 
 ### extract_audio()
 
-This is the function you want if you are starting with a video file, and you need a transcription of the audio. FFmpeg allows us to cleanly extract the audio and convert it to our required format with a single command, so we can do this pretty easily.
+This is the function you want if you are starting with a video file and you need a transcription of the audio. FFmpeg allows us to cleanly extract the audio and convert it to our required format with a single command, so we can do this pretty easily.
 
 The only argument for this function is a character vector of file names. I typically set my working directory to the folder containing my videos, and then just provide the output of `list.files()`. You can have other files in this directory, as the function will filter files according to common video-format extensions, but make sure that any video in the directory is one from which you want to have audio extracted.
 
@@ -132,11 +133,11 @@ n_threads = 1
 
 ### transcribe_linux()
 
-This last function is designed to adapt `transcribe_audio()`'s batch-processing commands for the approach outlined in Jeffrey Girard's [awesome tutorial on using `audio.whisper` with the Windows Subsystem for Linux](https://affcom.ku.edu/posts/whisper2024b/). See here some other neat computational tools developed by Girard and his colleagues at [University of Kansas's Affective Communication and Computing Lab](https://affcom.ku.edu/) 
+This last function is designed to adapt `transcribe_audio()`'s batch-processing commands for the approach outlined in Jeffrey Girard's [awesome tutorial on using `audio.whisper` with the Windows Subsystem for Linux](https://affcom.ku.edu/posts/whisper2024b/). You can find that tutorial [here](https://affcom.ku.edu/posts/whisper2024b/), along with other neat computational tools developed by Girard and his colleagues at [University of Kansas's Affective Communication and Computing Lab](https://affcom.ku.edu/). 
 
 By default, `transcribe_audio()` works with your CPU, but, if possible, drawing on a dedicated GPU can drastically improve transcription speed. Nvidia users in particular stand to benefit from `audio.whisper`'s implementation of the CUDA toolkit. 
 
-So, `transcribe_linux()` is more or less the same as `transcribe_audio()`, with a few minor adjustments to call on this GPU capability. You must have an Nvidia GPU with CUDA compatibility in order to use `transcribe_linux()`. You must also be to run R in Linux. See `audio.whisper`'s [GitHub page](https://github.com/bnosac/audio.whisper) for more details on GPU capability for Macs, and I strongly recommend the Girard tutorial linked above for anyone looking to get started with the Linux approach.
+So, `transcribe_linux()` is more or less the same as `transcribe_audio()`, with a few minor adjustments to call on this GPU capability. You must have an Nvidia GPU with CUDA compatibility (and the CUDA toolkit) in order to use `transcribe_linux()`. You must also be able to run R in Linux. See `audio.whisper`'s [GitHub page](https://github.com/bnosac/audio.whisper) for more details on GPU capability for Macs, and I strongly recommend the Girard tutorial linked above for anyone looking to get started with the Linux approach.
 
 
 -   **`x`:** A character vector of file names in your working directory
@@ -152,7 +153,7 @@ setwd("/mnt/c/Users/username/Desktop/files_to_be_transcribed")
 
 mp <- "mnt/c/Users/username/whispermodel/ggml-base.en.bin"
 
-transcribe_audio(
+transcribe_linux(
 x = list.files(),
 model_path = mp,
 include_timing = FALSE, 

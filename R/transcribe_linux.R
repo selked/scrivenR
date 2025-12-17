@@ -87,6 +87,7 @@ transcribe_linux <- function(x, model_path, include_timing = FALSE, internal_con
 
           chk$content <- gsub("\"", "", chk$content, fixed = TRUE)
           chk$content <- gsub("$-", "", chk$content, fixed = TRUE)
+          chk$content <- gsub("$ -", "", chk$content, fixed = TRUE)
 
           chk <- chk |>
             mutate(time_start = period_to_seconds(hms(from))) |>

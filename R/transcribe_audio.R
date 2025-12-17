@@ -85,6 +85,7 @@ if (internal_convert==TRUE) {
       names(chk)[4] <- "content"
 
       chk$content <- gsub("\"", "", chk$content, fixed = TRUE)
+      chk$content <- gsub("$-", "", chk$content, fixed = TRUE)
 
       chk <- chk |>
         mutate(time_start = period_to_seconds(hms(from))) |>

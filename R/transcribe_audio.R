@@ -85,7 +85,7 @@ if (internal_convert==TRUE) {
       names(chk)[4] <- "content"
 
       chk$content <- gsub("\"", "", chk$content, fixed = TRUE)
-      chk$content <- gsub("^$-", "", chk$content)
+      chk$content <- gsub("^-", "", chk$content)
       chk$content <- gsub("^ -", "", chk$content)
 
       chk <- chk |>

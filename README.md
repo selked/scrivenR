@@ -2,11 +2,11 @@
 
 ## Introduction
 
-This package provides a few convenience functions for batch-processing of audio conversion and automatic transcription. Though we need to hand-check the output of any transcript produced this way, doing so is often much less time-consuming than creating one from scratch. The goal of this package is to help create a simple pipeline for working with multiple recordings using tools available (or operable) in R. Each function takes a list of files, filters this list according to common files types, and then iteratively processes each file according to the function's procedure.
+This package provides a few convenience functions for batch-processing of audio-file conversion and automatic transcription. Though we need to hand-check the output of any transcript produced this way, doing so is often much less time-consuming than creating one from scratch. The goal of this package is to help create a simple pipeline for working with multiple recordings using tools available (or operable) in R. Each function takes a list of files, filters this list according to common files types, and then iteratively processes each file according to the function's procedure.
 
 Automatic transcription is performed with [Whisper](https://github.com/openai/whisper). I do most of my work in R, which includes the excellent [audio.whisper](https://github.com/bnosac/audio.whisper) package. This allows for easy transcription of individual audio files, but I wanted some ready-made functions for batch processing of file-conversion and automatic transcription. That's where `scrivenR` comes in.
 
-This package comprises four functions: `extract_audio()`, `convert_audio()`, `transcribe_audio()`, and `transcribe_linux()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this task, depending on whether we start with a video file or an inappropriately formatted audio files. The third function—assuming that we now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory.
+This package comprises four functions: `extract_audio()`, `convert_audio()`, `transcribe_audio()`, and `transcribe_linux()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this task, depending on whether we start with a video file or an inappropriately formatted audio files. The latter two functions—assuming that we now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory.
 
 Now, I'll explain some of the prerequisites and give a few working examples of each function.
 
@@ -26,9 +26,12 @@ You will want to make sure you have the following packages installed and loaded:
 
 You can download `scrivenR` by running `devtools::install_github("selked/scrivenR")`.
 
+### An Installation Note for audio.whisper
+Though you should be able to run the requisite `audio.whisper` functions out of the box, the package gives you some latitude when it comes to device-specific configurations.
+
 ### Download Whisper Acoustic Model
 
-A major convenience of Whisper's is that it is open-source and thus allows us to freely download its acoustic model and use it from our local device. This is especially helpful in the case that we want transcriptions of recordings that include sensitive data, which we do not want to send through any third-party servers. This also allows us the luxury of running transcriptions completely offline.
+A major convenience of Whisper's is that it is open-source, so we can freely download its acoustic model and use it from our local device. This is especially helpful in the case that we want transcriptions of recordings that include sensitive data, which we do not want to send through any third-party servers. This also allows us the luxury of running transcriptions completely offline.
 
 So, before working with the package, you should make sure that you have a copy of the Whisper model you want to use. Luckily, we can get this easily with the `audio.whisper()` package.
 

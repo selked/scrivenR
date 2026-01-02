@@ -136,7 +136,7 @@ n_threads = 1
 
 ### transcribe_linux()
 
-This last function is designed to adapt `transcribe_audio()`'s batch-processing commands for the approach outlined in Jeffrey Girard's awesome tutorial on using `audio.whisper` with the Windows Subsystem for Linux. You can find that tutorial [here](https://affcom.ku.edu/posts/whisper2024b/), along with other neat computational tools developed by Girard and his colleagues at [University of Kansas's Affective Communication and Computing Lab](https://affcom.ku.edu/). 
+This function is designed to adapt `transcribe_audio()`'s batch-processing commands for the approach outlined in Jeffrey Girard's awesome tutorial on using `audio.whisper` with the Windows Subsystem for Linux. You can find that tutorial [here](https://affcom.ku.edu/posts/whisper2024b/), along with other neat computational tools developed by Girard and his colleagues at [University of Kansas's Affective Communication and Computing Lab](https://affcom.ku.edu/). 
 
 By default, `transcribe_audio()` works with your CPU, but, if possible, drawing on a dedicated GPU can drastically improve transcription speed. Nvidia users in particular stand to benefit from `audio.whisper`'s implementation of the CUDA toolkit. 
 
@@ -165,3 +165,25 @@ write_textgrids = FALSE,
 n_threads = 1
 )
 ```
+
+### cleanup()
+
+This last function provides a simple way to delete any of the output created by scrivenR. For example, if you converted your original audio files, you may no longer need these 16-bit mono .WAV files, and you can quickly remove them by setting `converted_audio = TRUE` in cleanup(). 
+
+Note that this function deletes files with R's `file.remove()`, which permanently deletes the file, so make sure you're certain ahead of using cleanup(). 
+
+-   **converted_audio:** Remove files in the working directory ending with '_converted.wav'? (default = FALSE)
+-   **transcripts:** Remove files in the working directory ending with '_transcript.txt'? (default = FALSE)
+-   **textgrids:** Remove files in the working directory with a .TextGrid file extension? (default = FALSE)
+
+**Example**
+```{r, eval=FALSE} 
+setwd("C:/Users/username/Desktop/scrivenR_transcription_files")
+
+cleanup(
+converted_audio = FALSE,
+transcripts = FALSE,
+textgrids = FALSE
+)
+```
+

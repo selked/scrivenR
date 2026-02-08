@@ -22,7 +22,7 @@ cleanup <- function(converted_audio = FALSE, transcripts = FALSE, textgrids = FA
     del_wav <- file_vec |>
       str_subset("_converted.wav$")
 
-    message(paste(del_wav, sep = " "))
+    message(paste(del_wav, collapse = "\n"))
 
     choice <- menu(choices = c("Yes", "No"), title = paste0("Are you sure you want to permanently delete the converted audio files listed above?"))
 
@@ -45,7 +45,7 @@ cleanup <- function(converted_audio = FALSE, transcripts = FALSE, textgrids = FA
     del_trans <- file_vec |>
       str_subset("_transcript.txt$")
 
-    message(paste(del_trans, sep = " "))
+    message(paste(del_trans, collapse = "\n"))
 
     choice <- menu(choices = c("Yes", "No"), title = paste0("Are you sure you want to permanently delete the transcript files listed above?"))
 
@@ -68,7 +68,7 @@ cleanup <- function(converted_audio = FALSE, transcripts = FALSE, textgrids = FA
     del_tg <- file_vec |>
       str_subset(".TextGrid$")
 
-    message(paste(del_tg, sep = " "))
+    message(paste(del_tg, collapse = "\n"))
 
     choice <- menu(choices = c("Yes", "No"), title = paste0("Are you sure you want to permanently delete the TextGrid files listed above?"))
 

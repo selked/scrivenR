@@ -28,7 +28,7 @@ cleanup <- function(converted_audio = FALSE, transcripts = FALSE, textgrids = FA
 
       file.remove(del_wav)
 
-      message(paste0("Permanently deleted ", length(del_trans), " converted .WAV from ", getwd()))
+      message(paste0("Permanently deleted ", length(del_wav), " converted .WAV from ", getwd()))
     }
     else {
       message("Cleanup of converted audio files has been canceled.")
@@ -70,7 +70,7 @@ cleanup <- function(converted_audio = FALSE, transcripts = FALSE, textgrids = FA
 
       file.remove(del_tg)
 
-      message(paste0("Permanently deleted ", length(del_trans), " .TextGrid files from ", getwd()))
+      message(paste0("Permanently deleted ", length(del_tg), " .TextGrid files from ", getwd()))
     }
     else {
       message("Cleanup of TextGrids has been canceled.")

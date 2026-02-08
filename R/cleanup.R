@@ -22,9 +22,18 @@ cleanup <- function(converted_audio = FALSE, transcripts = FALSE, textgrids = FA
     del_wav <- file_vec |>
       str_subset("_converted.wav$")
 
-    file.remove(del_wav)
+    choice <- menu(choices = c("Yes", "No"), title = paste0("Are you sure you want to permanently delete the following converted audio files?", "\n", del_wav ))
 
-    message(paste0("Permanently deleted ", length(del_wav), " converted .WAV files from ", getwd()))
+    if (choice==1L) {
+
+      file.remove(del_wav)
+
+      message(paste0("Permanently deleted ", length(del_trans), " converted .WAV from ", getwd()))
+    }
+    else {
+      message("Cleanup of converted audio files has been canceled.")
+    }
+
 
   }
 
@@ -34,19 +43,40 @@ cleanup <- function(converted_audio = FALSE, transcripts = FALSE, textgrids = FA
     del_trans <- file_vec |>
       str_subset("_transcript.txt$")
 
-    file.remove(del_trans)
+    choice <- menu(choices = c("Yes", "No"), title = paste0("Are you sure you want to permanently delete the following transcript files?", "\n", del_trans))
 
-    message(paste0("Permanently deleted ", length(del_trans), " .TXT files from ", getwd()))
-  }
+    if (choice==1L) {
+
+      file.remove(del_trans)
+
+      message(paste0("Permanently deleted ", length(del_trans), " .TXT files from ", getwd()))
+    }
+    else {
+      message("Cleanup of transcripts has been canceled.")
+    }
+
+    }
+
+
 
   if (textgrids == TRUE) {
 
     del_tg <- file_vec |>
       str_subset(".TextGrid$")
 
-    file.remove(del_tg)
+    choice <- menu(choices = c("Yes", "No"), title = paste0("Are you sure you want to permanently delete the following TextGrid files?", "\n", del_tg))
 
-    message(paste0("Permanently deleted ", length(del_tg), " .TextGrid files from ", getwd()))
+    if (choice==1L) {
+
+      file.remove(del_tg)
+
+      message(paste0("Permanently deleted ", length(del_trans), " .TextGrid files from ", getwd()))
+    }
+    else {
+      message("Cleanup of TextGrids has been canceled.")
+    }
+
+
   }
 
 }

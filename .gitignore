@@ -42,3 +42,4 @@ vignettes/*.pdf
 
 # Sandbox file
 transcribe_sandbox.R
+.positai

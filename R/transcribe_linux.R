@@ -83,7 +83,8 @@ transcribe_linux <- function(x, model_path, include_timing = FALSE, internal_con
 
           chk <- trans$data
 
-          names(chk)[4] <- "content"
+          # Changed this index from 4 --> because of change in column names for new version of audio.whisper
+          names(chk)[5] <- "content"
 
           chk$content <- gsub("\"", "", chk$content, fixed = TRUE)
           chk$content <- gsub("^-", "", chk$content)

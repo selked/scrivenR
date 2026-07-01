@@ -10,6 +10,8 @@ transcribe_linux(
   include_timing = FALSE,
   internal_convert = TRUE,
   write_textgrids = FALSE,
+  print_trace = FALSE,
+  prompt = "",
   n_threads = 1
 )
 }
@@ -24,13 +26,17 @@ transcribe_linux(
 
 \item{write_textgrids}{Option to print time-aligned .TextGrid files for use in Praat; FALSE by default}
 
+\item{print_trace}{Option to print the on-going transcript in the console, default = FALSE}
+
+\item{prompt}{Option to provide an initial prompt to the model}
+
 \item{n_threads}{Number of CPU threads to use for parallel processing (default = 1). Use parallel::detectCores() if you are not sure how many you can use.}
 }
 \description{
 This function takes a list of file names for 16-bit mono WAVs and applies batch processing of automatic transcription using Whisper.
 }
 \examples{
-transcribe_linux(list.files(), model_path = mp, include_timing=TRUE, internal_convert=TRUE, write_textgrids = FALSE, n_threads = 1)
+transcribe_linux(list.files(), model_path = mp, include_timing=TRUE, internal_convert=TRUE, write_textgrids = FALSE, print_trace = FALSE, n_threads = 1)
 }
 \keyword{ASR,}
 \keyword{batch-processing}

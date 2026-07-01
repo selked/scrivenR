@@ -10,6 +10,8 @@ transcribe_audio(
   include_timing = FALSE,
   internal_convert = TRUE,
   write_textgrids = FALSE,
+  print_trace = FALSE,
+  prompt = "",
   n_threads = 1
 )
 }
@@ -24,13 +26,17 @@ transcribe_audio(
 
 \item{write_textgrids}{Option to print time-aligned .TextGrid files for use in Praat; FALSE by default}
 
+\item{print_trace}{Option to print the on-going transcript in the console, default = FALSE}
+
+\item{prompt}{Option to provide an initial prompt to the model}
+
 \item{n_threads}{The number of CPU threads to be used in parallel processing. Default value is 1, i.e. single-thread processing.}
 }
 \description{
 This function takes a list of file names for 16-bit mono WAVs and applies batch processing of automatic transcription using Whisper.
 }
 \examples{
-transcribe_audio(list.files(), model_path = mp, include_timing=TRUE, internal_convert=TRUE, write_textgrids = FALSE, all_cores = FALSE)
+transcribe_audio(list.files(), model_path = mp, include_timing=TRUE, internal_convert=TRUE, write_textgrids = FALSE, print_trace = FALSE, n_threads = FALSE)
 }
 \keyword{ASR,}
 \keyword{batch-processing}

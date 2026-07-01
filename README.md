@@ -6,7 +6,7 @@ This package provides a few convenience functions for batch-processing of audio-
 
 Automatic transcription is performed with [Whisper](https://github.com/openai/whisper). I do most of my work in R, which includes the excellent [audio.whisper](https://github.com/bnosac/audio.whisper) package. This allows for easy transcription of individual audio files, but I wanted some ready-made functions for batch processing of file-conversion and automatic transcription. That's where `scrivenR` comes in.
 
-This package comprises four functions: `extract_audio()`, `convert_audio()`, `transcribe_audio()`, and `transcribe_linux()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this task, depending on whether we start with a video file or an inappropriately formatted audio files. The latter two functions—assuming that we now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory.
+This package comprises five functions: `extract_audio()`, `convert_audio()`, `transcribe_audio()`, `transcribe_linux()`, and `cleanup()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this. The latter two functions—assuming that we now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory.
 
 Now, I'll explain some of the prerequisites and give a few working examples of each function.
 
@@ -24,10 +24,14 @@ You will want to make sure you have the following packages installed and loaded:
 -   phonfieldwork
 -   voice
 
-You can download `scrivenR` by running `devtools::install_github("selked/scrivenR")`.
+You can download `scrivenR` by running `remotes::install_github("selked/scrivenR")`.
 
 ### An Installation Note for audio.whisper
-Though you should be able to run the requisite `audio.whisper` functions out of the box, the package gives you some latitude when it comes to device-specific configurations.
+Though you should be able to run the requisite `audio.whisper` functions out of the box, the package gives you some latitude when it comes to device-specific configurations. 
+
+A common adjustment involves enabling GPU acceleration, which can dramatically increase transcription speeds relative to the CPU baseline. This option is available for users with both a dedicated GPU and a machine running either Linux or MacOS. If you meet these criteria, I strongly recommend reviewing [the developers' instructions for custom installation](https://github.com/bnosac/audio.whisper#speed-of-transcribing). 
+
+For Windows users with a dedicated GPU, it is still possible to use hardware acceleration with `audio.whisper`. If you are in this camp and not interested in options like dual-booting or setting up a separate virtual machine, the [Windows Subsystem for Linux (WSL)](https://github.com/microsoft/WSL) is a great option. See [details on the `transcribe_linux()` function](https://github.com/selked/scrivenR#transcribe_linux) below for more information on this approach.
 
 ### Download Whisper Acoustic Model
 
@@ -35,7 +39,7 @@ A major convenience of Whisper's is that it is open-source, so we can freely dow
 
 So, before working with the package, you should make sure that you have a copy of the Whisper model you want to use. Luckily, we can get this easily with the `audio.whisper()` package.
 
-Note that I'm including instructions for downloading the `base.en` model, which is only one of many options. [See here](https://community.r-multiverse.org/audio.whisper/doc/manual.html#whisper_download_model) for more detail. If you know your data is exclusively in English, opt for an English-only model, as performance appears optimized in these contexts. Otherwise, choose a model-size that makes sense for your system. I'm running on a pretty basic Dell laptop with an i5 intel core and 16 GB of RAM, and it took about 30-40 minutes to transcribe an hour-long recording using the base model (which had pretty good OOTB accuracy). As expected, transcription accuracy increases with model size, while transcription speed decreases correspondingly. I recommend that you start with one of the smaller models and see how it works, and then go from there.
+Note that I'm including instructions for downloading the `base.en` model, which is only one of many options. [See here](https://community.r-multiverse.org/audio.whisper/doc/manual.html#whisper_download_model) for more detail. If you know your data is exclusively in English, opt for an English-only model, as performance appears optimized in these contexts. Otherwise, choose a model-size that makes sense for your system. On a pretty basic Dell laptop with an i5 intel core, integrated graphics card, and 16 GB of RAM, it took about 30-40 minutes to transcribe an hour-long recording using the base model (which had pretty good OOTB accuracy). As expected, transcription accuracy increases with model size, while transcription speed decreases correspondingly. I recommend that you start with one of the smaller models and see how it works, and then go from there.
 
 ```{r, eval=FALSE}
 library(audio.whisper)
@@ -55,11 +59,11 @@ Once you have that situated, there's one more important prerequisite.
 
 ### Download Command-Line Program FFmpeg
 
-In order to extract audio from videos or convert files in other audio formats, this package uses ffmpeg. This is a lightweight but extremely powerful audio and video processing program that is run entirely from the command-line or terminal.
+In order to extract audio from videos or convert files in other audio formats, this package uses FFmpeg. This is a lightweight but extremely powerful audio and video processing program that is run entirely from the command-line or terminal.
 
-I'll mention that R does have the very neat `av` package, which binds R with ffmpeg, but I haven't always had the best luck with longer (1 hr+) files. Your mileage may well vary, and it handles many other audio-processing tasks as well, so I encourage you to try it out. But I found that files taking me upwards of 45 minutes to convert with `av` could be converted in seconds by calling ffmpeg directly through the command-line interface.
+I'll mention that R does have the very neat `av` package, which binds R with FFmpeg, but I haven't always had the best luck with longer (1 hr+) files. Your mileage may well vary, and it handles many other audio-processing tasks as well, so I encourage you to try it out. But I found that files taking me upwards of 45 minutes to convert with `av` could be converted in seconds by calling FFmpeg directly through the command-line interface.
 
-So, if you want to make use of `extract_audio()` or `convert_audio()`, you will need to make sure you have ffmpeg installed. You can download ffmpeg [here](https://www.ffmpeg.org/download.html). I'm on Windows, and I typically download the most recent, stable 'full' build from gyan.dev. Make sure that the location of your ffmpeg bin file is added to your PATH system environment variable.
+So, if you want to make use of `extract_audio()` or `convert_audio()`, you will need to make sure you have FFmpeg installed. You can download FFmpeg [here](https://www.ffmpeg.org/download.html). I'm on Windows, and I typically download the most recent, stable 'full' build from gyan.dev. Make sure that the location of your ffmpeg bin file is added to your PATH system environment variable.
 
 ## Example Code for Functions
 
@@ -116,6 +120,8 @@ Unlike the first two functions in this package, `transcribe_audio()` has multipl
 -   **`internal_convert`:** An option to indicate whether your audio files were converted with functions internal to this package. This will take the 'originalFileName_converted' re-naming format into account when filtering files in your directory for the transcription pipeline and is set to 'TRUE' by default. When set to FALSE, the function will operate on any .WAV file in the working directory.
 -   **`write_textgrids`:** An option to write a Praat TextGrid file for each .WAV---set to FALSE by default
 -   **`model_path`:** A character string of the path to your locally stored Whisper acoustic model. This argument is required and should look like "C:/username/whispermodel/ggml-base.en.bin", but with your own directory- and model-specific information.
+-   **`print_trace`:** An option to display the transcription in the console as it's being produced, FALSE by default.
+-   **`prompt`** A character string specifying the initial prompt; useful for mitigating some data-specific transcription errors. Default value is `""`
 -   **`n_threads`:** The number of CPU threads you want to dedicate for parallel processing. Defaults to 1, i.e. single-thread processing. Use `parallel::detectCores()` if you are not sure how many you can devote.
 
 **Example:**
@@ -130,6 +136,8 @@ model_path = mp,
 include_timing = FALSE, 
 internal_convert = TRUE,
 write_textgrids = FALSE,
+print_trace = FALSE,
+prompt = "",
 n_threads = 1
 )
 ```
@@ -148,13 +156,15 @@ So, `transcribe_linux()` is more or less the same as `transcribe_audio()`, with 
 -   **`internal_convert`:** An option to indicate whether your audio files were converted with functions internal to this package. This will take the 'originalFileName_converted' re-naming format into account when filtering files in your directory for the transcription pipeline and is set to 'TRUE' by default. When set to FALSE, the function will operate on any .WAV file in the working directory.
 -   **`write_textgrids`:** An option to write a Praat TextGrid file for each .WAV---set to FALSE by default
 -   **`model_path`:** A character string of the path to your locally stored Whisper acoustic model. This argument is required and should look like "C:/username/whispermodel/ggml-base.en.bin", but with your own directory- and model-specific information.
+-   **`print_trace`:** An option to display the transcription in the console as it's being produced, FALSE by default.
+-   **`prompt`** A character string specifying the initial prompt; useful for mitigating some data-specific transcription errors. Default value is `""`
 -   **`n_threads`:** The number of CPU threads you'd like to utilize in parallel procesing. Use `parallel:detectCores()` if you're unsure how many you can devote. Default is `1`, indicating single-thread processing
 
 **Example:**
 ```{r, eval=FALSE} 
 setwd("/mnt/c/Users/username/Desktop/files_to_be_transcribed")
 
-mp <- "mnt/c/Users/username/whispermodel/ggml-base.en.bin"
+mp <- "/mnt/c/Users/username/whispermodel/ggml-base.en.bin"
 
 transcribe_linux(
 x = list.files(),
@@ -162,19 +172,21 @@ model_path = mp,
 include_timing = FALSE, 
 internal_convert = TRUE,
 write_textgrids = FALSE,
+print_trace = FALSE,
+prompt = "",
 n_threads = 1
 )
 ```
 
 ### cleanup()
 
-This last function provides a simple way to delete any of the output created by scrivenR. For example, if you converted your original audio files, you may no longer need these 16-bit mono .WAV files, and you can quickly remove them by setting `converted_audio = TRUE` in cleanup(). 
+This last function provides a simple way to delete any of the output created by scrivenR. For example, if you had to convert your original audio files, you may no longer need the 16-bit mono .WAVs generated by `convert_audio()` after transcription, and you can quickly remove them by setting `converted_audio = TRUE` in cleanup(). 
 
-Note that this function deletes files with R's `file.remove()`, which permanently deletes the file, so make sure you're certain ahead of using cleanup(). 
+Note that this function deletes files with R's `file.remove()`, which sidesteps the recycling bin and permanently deletes the file. The function will show you all files selected for deletion and prompt you for final approval, but make sure you're certain ahead of using cleanup(). 
 
--   **converted_audio:** Remove files in the working directory ending with '_converted.wav'? (default = FALSE)
--   **transcripts:** Remove files in the working directory ending with '_transcript.txt'? (default = FALSE)
--   **textgrids:** Remove files in the working directory with a .TextGrid file extension? (default = FALSE)
+-   **converted_audio:** Remove files in the working directory ending with '_converted.wav' (default = FALSE)
+-   **transcripts:** Remove files in the working directory ending with '_transcript.txt' (default = FALSE)
+-   **textgrids:** Remove files in the working directory ending with '.TextGrid' (default = FALSE)
 
 **Example**
 ```{r, eval=FALSE} 

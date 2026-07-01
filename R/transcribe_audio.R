@@ -7,6 +7,7 @@
 #' @param internal_convert Option to retain naming format for conversions made with this package, default=TRUE. Setting to FALSE will point the function at any .WAVs in the working directory.
 #' @param write_textgrids Option to print time-aligned .TextGrid files for use in Praat; FALSE by default
 #' @param print_trace Option to print the on-going transcript in the console, default = FALSE
+#' @param prompt Option to provide an initial prompt to the model
 #' @param n_threads The number of CPU threads to be used in parallel processing. Default value is 1, i.e. single-thread processing.
 #' @keywords transcription, whisper, ASR, batch-processing
 #' @export
@@ -14,7 +15,7 @@
 #' transcribe_audio(list.files(), model_path = mp, include_timing=TRUE, internal_convert=TRUE, write_textgrids = FALSE, print_trace = FALSE, n_threads = FALSE)
 
 
-transcribe_audio <- function(x, model_path, include_timing = FALSE, internal_convert = TRUE, write_textgrids = FALSE, print_trace = FALSE, n_threads = 1) {
+transcribe_audio <- function(x, model_path, include_timing = FALSE, internal_convert = TRUE, write_textgrids = FALSE, print_trace = FALSE, prompt = "", n_threads = 1) {
 
 if (missing(model_path)) {
   stop("Path to Whisper acoustic model must be specified. Enter the directory containing the model downloaded with audio.whisper, or use its whisper() function to download one of the acoustic models and enter that path here.")
@@ -49,6 +50,7 @@ if (internal_convert==TRUE) {
                        newdata = fn,
                        language = "en",
                        trace = print_trace,
+                       prompt = prompt,
                        n_threads = n_threads
                        )
       end_time <- now()

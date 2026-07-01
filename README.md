@@ -29,9 +29,8 @@ You can download `scrivenR` by running `remotes::install_github("selked/scrivenR
 ### An Installation Note for audio.whisper
 Though you should be able to run the requisite `audio.whisper` functions out of the box, the package gives you some latitude when it comes to device-specific configurations. 
 
-A common adjustment involves enabling GPU acceleration, which can dramatically increase transcription speeds relative to the CPU baseline. This option is available for users with both a dedicated GPU and a machine running either Linux or MacOS. If you meet these criteria, I strongly recommend reviewing [the developers' instructions for custom installation](https://github.com/bnosac/audio.whisper#speed-of-transcribing). 
+A common adjustment involves enabling GPU acceleration, which can dramatically increase transcription speeds relative to the CPU baseline. This option is available for users with a bit of tech savvy and access to a dedicated GPU. If you meet these criteria, I strongly recommend reviewing [the developers' instructions for custom installation](https://github.com/bnosac/audio.whisper#speed-of-transcribing). 
 
-For Windows users with a dedicated GPU, it is still possible to use hardware acceleration with `audio.whisper`. If you are in this camp and not interested in options like dual-booting or setting up a separate virtual machine, the [Windows Subsystem for Linux (WSL)](https://github.com/microsoft/WSL) is a great option. See [details on the `transcribe_linux()` function](https://github.com/selked/scrivenR#transcribe_linux) below for more information on this approach.
 
 ### Download Whisper Acoustic Model
 

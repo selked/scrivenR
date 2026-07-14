@@ -1,4 +1,3 @@
-# scrivenR
 ![](scrivenR.png)
 
 ## Introduction
@@ -7,7 +6,7 @@ This package provides a few convenience functions for batch-processing of audio-
 
 Automatic transcription is performed with [Whisper](https://github.com/openai/whisper). I do most of my work in R, which includes the excellent [audio.whisper](https://github.com/bnosac/audio.whisper) package. This allows for easy transcription of individual audio files, but I wanted some ready-made functions for batch processing of file-conversion and automatic transcription. That's where `scrivenR` comes in.
 
-This package comprises five functions: `extract_audio()`, `convert_audio()`, `transcribe_audio()`, `transcribe_linux()`, and `cleanup()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this. The latter two functions—assuming that we now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory.
+This package comprises five functions: `extract_audio()`, `convert_audio()`, `transcribe_audio()`, `transcribe_linux()`, and `cleanup()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this. The next two functions—assuming that we now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory. The last function allows for easy disposal of any output created by the package.
 
 Now, I'll explain some of the prerequisites and give a few working examples of each function.
 

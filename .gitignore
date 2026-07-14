@@ -43,3 +43,5 @@ vignettes/*.pdf
 # Sandbox file
 transcribe_sandbox.R
 .positai
+docs
+altdoc/freeze.rds

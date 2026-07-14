@@ -1,4 +1,5 @@
 # scrivenR
+![](scrivenR.png){fig-alt="scrivenR hex sticker featuring a simple pen nib icon"}
 
 ## Introduction
 
@@ -197,4 +198,3 @@ transcripts = FALSE,
 textgrids = FALSE
 )
 ```
-

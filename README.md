@@ -1,5 +1,5 @@
 # scrivenR
-![](scrivenR.png){fig-alt="scrivenR hex sticker featuring a simple pen nib icon"}
+!["scrivenR hex sticker featuring a simple pen nib icon"](scrivenR.png)\
 
 ## Introduction
 

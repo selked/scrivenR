@@ -1,5 +1,5 @@
 # scrivenR
-!["scrivenR hex sticker featuring a simple pen nib icon"](scrivenR.png)\
+![](scrivenR.png)
 
 ## Introduction
 

@@ -145,7 +145,7 @@ n_threads = 1
 
 This function is designed to adapt `transcribe_cpu()`'s batch-processing commands for GPU-enabled installations of `audio.whisper`. I'll note that I have only tested this for Linux using the approach outlined in Jeffrey Girard's awesome tutorial on using `audio.whisper` with the Windows Subsystem for Linux. You can find that tutorial [here](https://affcom.ku.edu/posts/whisper2024b/), along with other neat computational tools developed by Girard and his colleagues at [University of Kansas's Affective Communication and Computing Lab](https://affcom.ku.edu/).
 
-However, this function should also work if you have GPU assistance for MacOS or Windows. If you try out `transcribe_gpu()` out under these other conditions and find that the function does not work, please let me know.
+However, this function should also work if you have GPU assistance for MacOS or Windows. If you try out `transcribe_gpu()` under these other conditions and find that the function does not work, please let me know.
 
 
 -   **`x`:** A character vector of file names in your working directory

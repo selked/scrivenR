@@ -1,6 +1,6 @@
 #' Transcribe 16-bit Mono .WAV file
 #'
-#' This function takes a list of file names for 16-bit mono WAVs and applies batch processing of automatic transcription using Whisper.
+#' This function takes a list of file names for 16-bit mono WAVs and applies batch processing of automatic transcription using Whisper, with GPU-assistance.
 #' @param x Output of list.files() in working directory containing audio
 #' @param model_path A character string of the path for your local Whisper acoustic model; this is required
 #' @param include_timing Option to include timestamps for each line of text, default=TRUE
@@ -12,10 +12,10 @@
 #' @keywords transcription, whisper, ASR, batch-processing
 #' @export
 #' @examples
-#' transcribe_linux(list.files(), model_path = mp, include_timing=TRUE, internal_convert=TRUE, write_textgrids = FALSE, print_trace = FALSE, n_threads = 1)
+#' transcribe_gpu(list.files(), model_path = mp, include_timing=TRUE, internal_convert=TRUE, write_textgrids = FALSE, print_trace = FALSE, n_threads = 1)
 
 
-transcribe_linux <- function(x, model_path, include_timing = FALSE, internal_convert = TRUE, write_textgrids = FALSE, print_trace = FALSE, prompt = "", n_threads = 1) {
+transcribe_gpu <- function(x, model_path, include_timing = FALSE, internal_convert = TRUE, write_textgrids = FALSE, print_trace = FALSE, prompt = "", n_threads = 1) {
 
   if (missing(model_path)) {
     stop("Path to Whisper acoustic model must be specified. Enter the directory containing the model downloaded with audio.whisper, or use its whisper() function to download one of the acoustic models and enter that path here.")

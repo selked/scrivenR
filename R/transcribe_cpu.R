@@ -12,10 +12,10 @@
 #' @keywords transcription, whisper, ASR, batch-processing
 #' @export
 #' @examples
-#' transcribe_audio(list.files(), model_path = mp, include_timing=TRUE, internal_convert=TRUE, write_textgrids = FALSE, print_trace = FALSE, n_threads = FALSE)
+#' transcribe_cpu(list.files(), model_path = mp, include_timing=TRUE, internal_convert=TRUE, write_textgrids = FALSE, print_trace = FALSE, n_threads = FALSE)
 
 
-transcribe_audio <- function(x, model_path, include_timing = FALSE, internal_convert = TRUE, write_textgrids = FALSE, print_trace = FALSE, prompt = "", n_threads = 1) {
+transcribe_cpu <- function(x, model_path, include_timing = FALSE, internal_convert = TRUE, write_textgrids = FALSE, print_trace = FALSE, prompt = "", n_threads = 1) {
 
 if (missing(model_path)) {
   stop("Path to Whisper acoustic model must be specified. Enter the directory containing the model downloaded with audio.whisper, or use its whisper() function to download one of the acoustic models and enter that path here.")

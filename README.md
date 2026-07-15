@@ -6,7 +6,7 @@ This package provides a few convenience functions for batch-processing of audio-
 
 Automatic transcription is performed with [Whisper](https://github.com/openai/whisper). I do most of my work in R, which includes the excellent [audio.whisper](https://github.com/bnosac/audio.whisper) package. This allows for easy transcription of individual audio files, but I wanted some ready-made functions for batch processing of file-conversion and automatic transcription. That's where `scrivenR` comes in.
 
-This package comprises five functions: `extract_audio()`, `convert_audio()`, `transcribe_audio()`, `transcribe_linux()`, and `cleanup()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this. The next two functions—assuming that we now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory. The last function allows for easy disposal of any output created by the package.
+This package comprises five functions: `extract_audio()`, `convert_audio()`, `transcribe_cpu()`, `transcribe_gpu()`, and `cleanup()`. Because Whisper requires its audio input to be formatted as 16-bit mono .WAVs, we often need to convert our audio files accordingly. The first two functions help us with this. The next two functions—assuming that we now have the correct file formatting—will iterate through our list of files, automatically transcribe each recording, and write the output to a .txt file in the working directory. The last function allows for easy disposal of any output created by the package.
 
 Now, I'll explain some of the prerequisites and give a few working examples of each function.
 
@@ -106,13 +106,13 @@ setwd("C:/username/Desktop/audio_files")
 convert_audio(list.files())
 ```
 
-### transcribe_audio()
+### transcribe_cpu()
 
-This function is the main thrust of the package and is essentially a convenience wrapper for [`audio.whisper::predict`](https://community.r-multiverse.org/audio.whisper/doc/manual.html#predict.whisper) that facilitates batch processing and provides some additional output options. The function iterates through each of your appropriately formatted audio files, transcribes the speech, and outputs a plain-text file.
+This function is the main thrust of the package and is essentially a convenience wrapper for [`audio.whisper::predict`](https://community.r-multiverse.org/audio.whisper/doc/manual.html#predict.whisper) that facilitates batch processing and provides some additional output options. The function iterates through each of your appropriately formatted audio files, transcribes the speech, and outputs a plain-text file. As the name suggests, this function transcribes audio via the CPU, which is the default behavior of `audio.whisper`. 
 
 You also have the option of using the transcription to generate a time-aligned [Praat](https://www.fon.hum.uva.nl/praat/) TextGrid for each audio file. This is accomplished by leveraging some functions from the very neat [phonfieldwork](https://github.com/ropensci/phonfieldwork) package.
 
-Unlike the first two functions in this package, `transcribe_audio()` has multiple arguments.
+Unlike the first two functions in this package, `transcribe_cpu()` has multiple arguments.
 
 -   **`x`:** A character vector of file names in your working directory
 -   **`include_timing`:** An option to specify whether you want line-by-line timestamps recorded in your plain-text output. This is set to 'FALSE' by default.
@@ -129,7 +129,7 @@ setwd("C:/username/Desktop/files_to_be_transcribed")
 
 mp <- "C:/username/whispermodel/ggml-base.en.bin"
 
-transcribe_audio(
+transcribe_cpu(
 x = list.files(),
 model_path = mp,
 include_timing = FALSE, 
@@ -141,13 +141,11 @@ n_threads = 1
 )
 ```
 
-### transcribe_linux()
+### transcribe_gpu()
 
-This function is designed to adapt `transcribe_audio()`'s batch-processing commands for the approach outlined in Jeffrey Girard's awesome tutorial on using `audio.whisper` with the Windows Subsystem for Linux. You can find that tutorial [here](https://affcom.ku.edu/posts/whisper2024b/), along with other neat computational tools developed by Girard and his colleagues at [University of Kansas's Affective Communication and Computing Lab](https://affcom.ku.edu/). 
+This function is designed to adapt `transcribe_cpu()`'s batch-processing commands for GPU-enabled installations of `audio.whisper`. I'll note that I have only tested this for Linux using the approach outlined in Jeffrey Girard's awesome tutorial on using `audio.whisper` with the Windows Subsystem for Linux. You can find that tutorial [here](https://affcom.ku.edu/posts/whisper2024b/), along with other neat computational tools developed by Girard and his colleagues at [University of Kansas's Affective Communication and Computing Lab](https://affcom.ku.edu/).
 
-By default, `transcribe_audio()` works with your CPU, but, if possible, drawing on a dedicated GPU can drastically improve transcription speed. Nvidia users in particular stand to benefit from `audio.whisper`'s implementation of the CUDA toolkit. 
-
-So, `transcribe_linux()` is more or less the same as `transcribe_audio()`, with a few minor adjustments to call on this GPU capability. You must have an Nvidia GPU with CUDA compatibility (and the CUDA toolkit) in order to use `transcribe_linux()`. You must also be able to run R in Linux. See `audio.whisper`'s [GitHub page](https://github.com/bnosac/audio.whisper) for more details on GPU capability for Macs, and I strongly recommend the Girard tutorial linked above for anyone looking to get started with the Linux approach.
+However, this function should also work if you have GPU assistance for MacOS or Windows. If you try out `transcribe_gpu()` out under these other conditions and find that the function does not work, please let me know.
 
 
 -   **`x`:** A character vector of file names in your working directory
@@ -165,7 +163,7 @@ setwd("/mnt/c/Users/username/Desktop/files_to_be_transcribed")
 
 mp <- "/mnt/c/Users/username/whispermodel/ggml-base.en.bin"
 
-transcribe_linux(
+transcribe_gpu(
 x = list.files(),
 model_path = mp,
 include_timing = FALSE, 
